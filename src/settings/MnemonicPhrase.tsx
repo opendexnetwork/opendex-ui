@@ -85,6 +85,7 @@ const MnemonicPhrase = inject(BACKUP_STORE)(
                         setChecked((previousChecked) => !previousChecked)
                       }
                       name="checked"
+                      color="default"
                     />
                   }
                   label="I understand that I will not be able to recover my funds if I lose this data"
