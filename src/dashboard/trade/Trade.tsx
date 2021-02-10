@@ -31,6 +31,9 @@ type StateType = DashboardContentState & {
 
 const styles = (theme: Theme) => {
   return createStyles({
+    container: {
+      height: "100%",
+    },
     wrapper: {
       height: "100%",
     },
@@ -126,7 +129,7 @@ class Trade extends DashboardContent<PropsType, StateType> {
 
     return (
       <Provider tradeStore={this.tradeStore}>
-        <Grid container direction="column">
+        <Grid container direction="column" className={classes.container}>
           {this.state.opendexdLocked || this.state.opendexdNotReady ? (
             <ViewDisabled
               opendexdLocked={this.state.opendexdLocked}
