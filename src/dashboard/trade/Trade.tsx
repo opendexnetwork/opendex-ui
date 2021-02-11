@@ -93,12 +93,12 @@ class Trade extends DashboardContent<PropsType, StateType> {
         )
         .subscribe({
           next: (resp) => {
-            this.tradeStore.setActivePair(
-              resp.pairs.length ? resp.pairs[0] : undefined
-            );
+            const activePair = "ETH/BTC";
+            this.tradeStore.setActivePair(activePair);
             this.setState({
               initialLoadCompleted: true,
               pairs: resp.pairs,
+              activePair,
             });
           },
           error: (err) =>
