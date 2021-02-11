@@ -129,17 +129,15 @@ const Dashboard = (): ReactElement => {
       .pipe(takeUntil(lndsReady$))
       .subscribe({
         next: (status: SetupStatusResponse | null) => {
-          if (status) {
+          if (status && status.details) {
             setSyncInProgress(true);
-            setMenuItemTooltipMsg(
-              status.details
-                ? [
-                    "Waiting for initial sync...",
-                    `Bitcoin: ${status.details["lndbtc"]}`,
-                    `Litecoin: ${status.details["lndltc"]}`,
-                  ]
-                : [status.status]
-            );
+            setMenuItemTooltipMsg([
+              "Waiting for initial sync...",
+              `Bitcoin: ${status.details["lndbtc"]}`,
+              `Litecoin: ${status.details["lndltc"]}`,
+            ]);
+          } else {
+            setSyncInProgress(false);
           }
         },
         error: () => {

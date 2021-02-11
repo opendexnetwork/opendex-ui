@@ -12,6 +12,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import React, { ReactElement } from "react";
 import { Subject } from "rxjs";
+import { isLnd } from "../../common/currencyUtil";
 import { WalletItemViewType } from "./WalletItem";
 
 type WalletItemHeaderProps = {
@@ -78,7 +79,7 @@ const WalletItemHeader = (props: WalletItemHeaderProps): ReactElement => {
             Trading Limits
           </Button>
         )}
-        {isActive(WalletItemViewType.DEPOSIT) && (
+        {isActive(WalletItemViewType.DEPOSIT) && isLnd(currency) && (
           <Tooltip title="Request new address">
             <IconButton edge="end" onClick={() => refreshSubject!.next()}>
               <RefreshIcon />
