@@ -4,7 +4,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Observable, Subject } from "rxjs";
-import { filter, mergeMap, pluck, take } from "rxjs/operators";
+import { isLnd } from "../../common/currencyUtil";
 import { getErrorMsg } from "../../common/errorUtil";
 import { isServiceReady } from "../../common/serviceUtil";
 import Balance from "../../models/Balance";
@@ -63,9 +63,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const transactionButtonsVisible = (currency: string): boolean =>
-  ["BTC", "LTC"].includes(currency);
-
 const WalletItem = (props: WalletItemProps): ReactElement => {
   const classes = useStyles();
   const { balance, currency, limits, getInfo$, getBoltzStatus$ } = props;
@@ -75,44 +72,41 @@ const WalletItem = (props: WalletItemProps): ReactElement => {
   const [refreshSubject, setRefreshSubject] = useState<
     Subject<void> | undefined
   >(undefined);
-  const [transactionsDisabledCause, setTransactionsDisabledCause] = useState(
-    "Waiting for Boltz status"
-  );
+  const [
+    boltzTransactionsDisabledCause,
+    setBoltzTransactionsDisabledCause,
+  ] = useState("Waiting for Boltz status");
 
   const isActive = (...type: WalletItemViewType[]): boolean =>
     type.includes(activeViewType);
 
+  const getTxButtonDisabledMsg = (isDeposit?: boolean): string => {
+    if (isLnd(currency)) {
+      return boltzTransactionsDisabledCause;
+    }
+    return isDeposit ? "" : "Coming soon";
+  };
+
   useEffect(() => {
-    if (!transactionButtonsVisible(currency)) {
+    if (!isLnd(currency)) {
       return;
     }
-    const network$ = getInfo$.pipe(take(1), pluck("network"));
-    network$.subscribe((value) => {
-      if (value.toLowerCase() === "simnet") {
-        setTransactionsDisabledCause("Not available on Simnet");
-      }
+    const sub = getBoltzStatus$.subscribe({
+      next: (status) => {
+        setBoltzTransactionsDisabledCause(
+          isServiceReady(status)
+            ? ""
+            : `Boltz is not ready. Status: ${status.status}`
+        );
+      },
+      error: (err) => {
+        setBoltzTransactionsDisabledCause(
+          `Boltz is unavailable. Error: ${getErrorMsg(err)}`
+        );
+      },
     });
-    const sub = network$
-      .pipe(
-        filter((value) => value !== "simnet"),
-        mergeMap(() => getBoltzStatus$)
-      )
-      .subscribe({
-        next: (status) => {
-          setTransactionsDisabledCause(
-            isServiceReady(status)
-              ? ""
-              : `Boltz is not ready. Status: ${status.status}`
-          );
-        },
-        error: (err) => {
-          setTransactionsDisabledCause(
-            `Boltz is unavailable. Error: ${getErrorMsg(err)}`
-          );
-        },
-      });
     return () => sub.unsubscribe();
-  }, [getInfo$, getBoltzStatus$, currency]);
+  }, [getBoltzStatus$, currency]);
 
   const views: WalletItemView[] = [
     {
@@ -201,31 +195,29 @@ const WalletItem = (props: WalletItemProps): ReactElement => {
                   </Grid>
                 )
             )}
-            {isActive(WalletItemViewType.BALANCE, WalletItemViewType.LIMITS) &&
-              transactionButtonsVisible(currency) && (
-                <Grid
-                  item
-                  container
-                  justify="center"
-                  spacing={6}
-                  className={classes.rowsGroup}
-                >
-                  <WalletTransactionButton
-                    text="Deposit"
-                    disabledHint={transactionsDisabledCause}
-                    onClick={() =>
-                      setActiveViewType(WalletItemViewType.DEPOSIT)
-                    }
-                  />
-                  <WalletTransactionButton
-                    text="Withdraw"
-                    disabledHint={transactionsDisabledCause}
-                    onClick={() =>
-                      setActiveViewType(WalletItemViewType.WITHDRAW)
-                    }
-                  />
-                </Grid>
-              )}
+            {isActive(
+              WalletItemViewType.BALANCE,
+              WalletItemViewType.LIMITS
+            ) && (
+              <Grid
+                item
+                container
+                justify="center"
+                spacing={4}
+                className={classes.rowsGroup}
+              >
+                <WalletTransactionButton
+                  text="Deposit"
+                  disabledHint={getTxButtonDisabledMsg(true)}
+                  onClick={() => setActiveViewType(WalletItemViewType.DEPOSIT)}
+                />
+                <WalletTransactionButton
+                  text="Withdraw"
+                  disabledHint={getTxButtonDisabledMsg()}
+                  onClick={() => setActiveViewType(WalletItemViewType.WITHDRAW)}
+                />
+              </Grid>
+            )}
           </Grid>
         </CardContent>
       </Card>
