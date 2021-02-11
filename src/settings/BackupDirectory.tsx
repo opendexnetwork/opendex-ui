@@ -31,8 +31,9 @@ type BackupDirectoryProps = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    input: {
-      minWidth: 270,
+    inputContainer: {
+      width: "100%",
+      maxWidth: 500,
     },
     messageContainer: {
       minHeight: 50,
@@ -130,9 +131,11 @@ const BackupDirectory = inject(
                 </Grid>
               )
             ) : (
-              <FormControl variant="outlined">
+              <FormControl
+                variant="outlined"
+                className={classes.inputContainer}
+              >
                 <OutlinedInput
-                  className={classes.input}
                   id="backup-input"
                   value={backupDirectory || ""}
                   placeholder="/home/user/opendex-backup"
