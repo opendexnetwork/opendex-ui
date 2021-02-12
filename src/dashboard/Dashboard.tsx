@@ -201,6 +201,7 @@ const Dashboard = (): ReactElement => {
                   startIcon={<CachedIcon />}
                   variant="outlined"
                   className={classes.drawerButton}
+                  fullWidth
                   onClick={disconnect}
                 >
                   Disconnect
