@@ -28,12 +28,12 @@ import { Path } from "../router/Path";
 import Console from "./console/Console";
 import MenuItem, { MenuItemProps } from "./menu/MenuItem";
 import Overview from "./overview/Overview";
-import SetupWarning from "./SetupWarning";
+// import SetupWarning from "./SetupWarning";
 import Trade from "./trade/Trade";
 import Tradehistory from "./tradehistory/Tradehistory";
 import Wallets from "./wallet/Wallets";
-import SettingsIcon from "@material-ui/icons/Settings";
-import Settings from "../settings/Settings";
+/* import SettingsIcon from "@material-ui/icons/Settings";
+import Settings from "../settings/Settings"; */
 
 export const drawerWidth = 200;
 
@@ -185,14 +185,14 @@ const Dashboard = (): ReactElement => {
           </List>
         </Grid>
         <Grid container item direction="column" justify="flex-end">
-          <Grid item container>
+          {/* <Grid item container>
             <MenuItem
               path={Path.SETTINGS}
               text={"Settings"}
               component={Settings}
               icon={SettingsIcon}
             />
-          </Grid>
+          </Grid> */}
           {isElectron() && (
             <Grid item container justify="center">
               <Tooltip title="Disconnect from opendex-docker" placement="top">
@@ -212,18 +212,18 @@ const Dashboard = (): ReactElement => {
         </Grid>
       </Drawer>
       <main className={classes.content}>
-        <Grid item container>
+        {/* <Grid item container>
           {<SetupWarning />}
-        </Grid>
+        </Grid> */}
         <Switch>
           {menuItems.map((item) => (
             <Route exact path={`${path}${item.path}`} key={item.text}>
               {item.component}
             </Route>
           ))}
-          <Route path={`${path}${Path.SETTINGS}`}>
+          {/* <Route path={`${path}${Path.SETTINGS}`}>
             <Settings />
-          </Route>
+          </Route> */}
           <Route exact path={path}>
             <Redirect to={`${path}${Path.OVERVIEW}`} />
           </Route>
