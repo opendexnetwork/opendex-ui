@@ -1,7 +1,7 @@
 import { inject, observer } from "mobx-react";
 import React, { ReactElement, useState } from "react";
 import api from "../../../api";
-import ButtonWithLoading from "../../../common/ButtonWithLoading";
+import ButtonWithLoading from "../../../common/buttonWithLoading";
 import { coinsToSats } from "../../../common/currencyUtil";
 import { OrderSide } from "../../../enums";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";

@@ -1,6 +1,7 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Theme, withStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
+import { ThemeProvider } from "styled-components";
+import { ThemeProvider as MaterialThemeProvider } from "@material-ui/styles";
 import React, { ReactElement, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -8,9 +9,9 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import ConnectionFailed from "./common/ConnectionFailed";
-import NotFound from "./common/NotFound";
-import Dashboard from "./dashboard/Dashboard";
+import ConnectionFailed from "./common/connectionFailed";
+import NotFound from "./common/notFound";
+import Dashboard from "./dashboard";
 import { Path } from "./router/Path";
 import { darkTheme } from "./themes";
 import { useElectronStore } from "./stores/electronStore";
@@ -86,26 +87,28 @@ function App(): ReactElement {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <GlobalCss />
-      <Provider electronStore={electronStore} backupStore={backupStore}>
-        <Router>
-          <Switch>
-            <Route path={Path.CONNECTION_FAILED}>
-              <ConnectionFailed />
-            </Route>
-            <Route path={Path.DASHBOARD}>
-              <Dashboard />
-            </Route>
-            <Route exact path={Path.HOME}>
-              <Redirect to={Path.DASHBOARD} />
-            </Route>
-            <Route>
-              <NotFound />
-            </Route>
-          </Switch>
-        </Router>
-      </Provider>
+      <MaterialThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <GlobalCss />
+        <Provider electronStore={electronStore} backupStore={backupStore}>
+          <Router>
+            <Switch>
+              <Route path={Path.CONNECTION_FAILED}>
+                <ConnectionFailed />
+              </Route>
+              <Route path={Path.DASHBOARD}>
+                <Dashboard />
+              </Route>
+              <Route exact path={Path.HOME}>
+                <Redirect to={Path.DASHBOARD} />
+              </Route>
+              <Route>
+                <NotFound />
+              </Route>
+            </Switch>
+          </Router>
+        </Provider>
+      </MaterialThemeProvider>
     </ThemeProvider>
   );
 }

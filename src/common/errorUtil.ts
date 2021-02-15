@@ -22,9 +22,9 @@ export const BOLTZ_ERROR_MESSAGES: { [error: string]: string } = {
 };
 
 /**
- * Maps opendexd errors to user-friendly messages
+ * Maps xud errors to user-friendly messages
  */
-export const OPENDEXD_ERROR_MESSAGES: { [error: string]: string } = {
+export const XUD_ERROR_MESSAGES: { [error: string]: string } = {
   "rpc error: code = InvalidArgument desc = password is incorrect":
     "Incorrect password",
 };

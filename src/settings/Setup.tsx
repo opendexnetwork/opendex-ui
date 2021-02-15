@@ -75,7 +75,7 @@ const Setup = inject(BACKUP_STORE)(
 
       const steps: SetupStep[] = [
         {
-          label: "Set password to unlock opendexd",
+          label: "Set password to unlock XUD",
           component: (
             <ChangePassword
               isSetup

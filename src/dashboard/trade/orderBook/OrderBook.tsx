@@ -13,7 +13,7 @@ import api from "../../../api";
 import { getErrorMsg } from "../../../common/errorUtil";
 import SectionTitle from "../SectionTitle";
 import { Bucket } from "../../../models/OrderBookResponse";
-import Loader from "../../../common/Loader";
+import Loader from "../../../common/loader";
 import ErrorMessage from "../../../common/ErrorMessage";
 import Orders from "./Orders";
 import { tradeTheme } from "../../../themes";

@@ -12,7 +12,7 @@ import { exhaustMap, retry } from "rxjs/operators";
 import api from "../../../api";
 import ErrorMessage from "../../../common/ErrorMessage";
 import { getErrorMsg } from "../../../common/errorUtil";
-import Loader from "../../../common/Loader";
+import Loader from "../../../common/loader";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
 import { darkTheme, tradeTheme } from "../../../themes";
 import SectionTitle from "../SectionTitle";

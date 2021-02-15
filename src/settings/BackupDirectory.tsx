@@ -31,9 +31,8 @@ type BackupDirectoryProps = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    inputContainer: {
-      width: "100%",
-      maxWidth: 500,
+    input: {
+      minWidth: 270,
     },
     messageContainer: {
       minHeight: 50,
@@ -96,8 +95,8 @@ const BackupDirectory = inject(
           <Grid item container alignItems="center" justify="center">
             <Typography variant="body1" align="center">
               {isLocalConnection
-                ? "Choose a backup directory to store files, which can be used alongside the mnemonic words to recover your opendexd node"
-                : "To store backup files, enter a path from the device opendex-docker is running on. Backup files can then be used alongside mnemonic words to recover your opendexd node."}
+                ? "Choose a backup directory to store files, which can be used alongside the mnemonic words to recover your XUD node"
+                : "To store backup files, enter a path from the device xud-docker is running on. Backup files can then be used alongside mnemonic words to recover your XUD node."}
             </Typography>
           </Grid>
           <Grid item container alignItems="center" justify="center">
@@ -131,14 +130,12 @@ const BackupDirectory = inject(
                 </Grid>
               )
             ) : (
-              <FormControl
-                variant="outlined"
-                className={classes.inputContainer}
-              >
+              <FormControl variant="outlined">
                 <OutlinedInput
+                  className={classes.input}
                   id="backup-input"
                   value={backupDirectory || ""}
-                  placeholder="/home/user/opendex-backup"
+                  placeholder="/home/user/xud-backup"
                   onChange={(event) => {
                     setBackupDirectory(event.target.value);
                   }}

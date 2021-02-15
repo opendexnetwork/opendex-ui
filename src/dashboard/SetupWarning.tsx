@@ -90,9 +90,7 @@ const SetupWarning = inject(BACKUP_STORE)(
                     color="inherit"
                     variant="outlined"
                     onClick={() =>
-                      history.push(
-                        `${Path.DASHBOARD}${Path.SETTINGS}${Path.INITIAL_SETUP}`
-                      )
+                      history.push(`${Path.SETTINGS}${Path.INITIAL_SETUP}`)
                     }
                   >
                     Setup Now

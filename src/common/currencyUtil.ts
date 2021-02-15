@@ -9,6 +9,7 @@ const CURRENCY_DICTIONARY: {
   USDT: {},
   WETH: {},
   DAI: {},
+  XUC: {},
 };
 
 export const satsToCoinsStr = (
@@ -44,6 +45,3 @@ export const getCurrencyFullName = (currency: string): string => {
   const fullName = CURRENCY_DICTIONARY[currency.toUpperCase()]?.fullName;
   return fullName || currency;
 };
-
-export const isLnd = (currency: string): boolean =>
-  ["BTC", "LTC"].includes(currency);

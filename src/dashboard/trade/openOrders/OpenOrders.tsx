@@ -8,7 +8,7 @@ import api from "../../../api";
 import { satsToCoins, satsToCoinsStr } from "../../../common/currencyUtil";
 import ErrorMessage from "../../../common/ErrorMessage";
 import { getErrorMsg } from "../../../common/errorUtil";
-import Loader from "../../../common/Loader";
+import Loader from "../../../common/loader";
 import Table, { TableHeader } from "../../../common/Table";
 import { OrderOwner } from "../../../enums";
 import { Order } from "../../../models/Order";

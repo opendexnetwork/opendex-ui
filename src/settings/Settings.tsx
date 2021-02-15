@@ -23,9 +23,9 @@ import { exhaustMap } from "rxjs/operators";
 import api from "../api";
 import ErrorMessage from "../common/ErrorMessage";
 import { getErrorMsg } from "../common/errorUtil";
-import Loader from "../common/Loader";
-import { isOpendexdLocked, isOpendexdReady } from "../common/serviceUtil";
-import ViewDisabled from "../dashboard/ViewDisabled";
+import Loader from "../common/loader";
+import { isXudLocked, isXudReady } from "../common/serviceUtil";
+import ViewDisabled from "../dashboard/viewDisabled";
 import { Status } from "../models/Status";
 import { Path } from "../router/Path";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
@@ -71,48 +71,43 @@ const Settings = inject(BACKUP_STORE)(
   observer(
     (props?: SettingsProps): ReactElement => {
       const { backupStore } = props!;
-      const [opendexdStatus, setOpendexdStatus] = useState<Status | undefined>(
-        undefined
-      );
-      const [opendexdStatusError, setOpendexdStatusError] = useState("");
+      const [xudStatus, setXudStatus] = useState<Status | undefined>(undefined);
+      const [xudStatusError, setXudStatusError] = useState("");
       const classes = useStyles();
       const { path, url } = useRouteMatch();
       const { pathname } = useLocation();
 
       useEffect(() => {
         const sub = timer(0, 5000)
-          .pipe(exhaustMap(() => api.statusByService$("opendexd")))
+          .pipe(exhaustMap(() => api.statusByService$("xud")))
           .subscribe({
-            next: (resp) => setOpendexdStatus(resp),
-            error: (err) => setOpendexdStatusError(getErrorMsg(err)),
+            next: (resp) => setXudStatus(resp),
+            error: (err) => setXudStatusError(getErrorMsg(err)),
           });
 
         return () => sub.unsubscribe();
       }, []);
 
       /**
-       * In case a component needs opendexd to be ready and unlocked,
-       * information from opendexd status is displayed when those conditions are not met.
+       * In case a component needs xud to be ready and unlocked,
+       * information from xud status is displayed when those conditions are not met.
        *
        * @param comp
-       * a component to display when opendexd is ready and unlocked
+       * a component to display when xud is ready and unlocked
        */
-      const showOpendexdDependentComponent = (
-        comp: ReactElement
-      ): ReactElement => {
-        if (opendexdStatus) {
-          return !isOpendexdLocked(opendexdStatus) &&
-            isOpendexdReady(opendexdStatus) ? (
+      const showXudDependentComponent = (comp: ReactElement): ReactElement => {
+        if (xudStatus) {
+          return !isXudLocked(xudStatus) && isXudReady(xudStatus) ? (
             comp
           ) : (
             <ViewDisabled
-              opendexdLocked={isOpendexdLocked(opendexdStatus)}
-              opendexdStatus={opendexdStatus.status}
+              xudLocked={isXudLocked(xudStatus)}
+              xudStatus={xudStatus.status}
             />
           );
         }
-        return opendexdStatusError ? (
-          <ErrorMessage mainMessage={"Error"} details={opendexdStatusError} />
+        return xudStatusError ? (
+          <ErrorMessage mainMessage={"Error"} details={xudStatusError} />
         ) : (
           <Loader />
         );
@@ -132,7 +127,7 @@ const Settings = inject(BACKUP_STORE)(
             !backupStore!.defaultPassword && backupStore!.mnemonicShown ? (
               <Setup />
             ) : (
-              showOpendexdDependentComponent(<Setup />)
+              showXudDependentComponent(<Setup />)
             ),
           isDisabled: !backupStore!.backupInfoLoaded || initialSetupFinished,
         },
@@ -145,7 +140,7 @@ const Settings = inject(BACKUP_STORE)(
         {
           text: "Change Password",
           path: Path.CHANGE_PASSWORD,
-          component: showOpendexdDependentComponent(<ChangePassword />),
+          component: showXudDependentComponent(<ChangePassword />),
           isDisabled: !initialSetupFinished,
         },
       ];

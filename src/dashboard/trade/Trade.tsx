@@ -7,10 +7,10 @@ import { interval, timer } from "rxjs";
 import { filter, mergeMap, retry, take } from "rxjs/operators";
 import api from "../../api";
 import { getErrorMsg } from "../../common/errorUtil";
-import PageCircularProgress from "../../common/PageCircularProgress";
+import PageCircularProgress from "../../common/pageCircularProgress";
 import { Path } from "../../router/Path";
 import DashboardContent, { DashboardContentState } from "../DashboardContent";
-import ViewDisabled from "../ViewDisabled";
+import ViewDisabled from "../viewDisabled";
 import OpenOrders from "./openOrders/OpenOrders";
 import OrderBook from "./orderBook/OrderBook";
 import Select from "../../common/Select";
@@ -31,9 +31,6 @@ type StateType = DashboardContentState & {
 
 const styles = (theme: Theme) => {
   return createStyles({
-    container: {
-      height: "100%",
-    },
     wrapper: {
       height: "100%",
     },
@@ -84,21 +81,19 @@ class Trade extends DashboardContent<PropsType, StateType> {
       timer(0, 2000)
         .pipe(
           mergeMap(() => super.checkStatus()),
-          filter(
-            () => !this.state.opendexdLocked && !this.state.opendexdNotReady
-          ),
+          filter(() => !this.state.xudLocked && !this.state.xudNotReady),
           take(1),
           mergeMap(() => api.listpairs$()),
           retry(10)
         )
         .subscribe({
           next: (resp) => {
-            const activePair = "ETH/BTC";
-            this.tradeStore.setActivePair(activePair);
+            this.tradeStore.setActivePair(
+              resp.pairs.length ? resp.pairs[0] : undefined
+            );
             this.setState({
               initialLoadCompleted: true,
               pairs: resp.pairs,
-              activePair,
             });
           },
           error: (err) =>
@@ -129,11 +124,11 @@ class Trade extends DashboardContent<PropsType, StateType> {
 
     return (
       <Provider tradeStore={this.tradeStore}>
-        <Grid container direction="column" className={classes.container}>
-          {this.state.opendexdLocked || this.state.opendexdNotReady ? (
+        <Grid container direction="column">
+          {this.state.xudLocked || this.state.xudNotReady ? (
             <ViewDisabled
-              opendexdLocked={this.state.opendexdLocked}
-              opendexdStatus={this.state.opendexdStatus}
+              xudLocked={this.state.xudLocked}
+              xudStatus={this.state.xudStatus}
             />
           ) : (
             <Grid
