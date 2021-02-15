@@ -23,9 +23,8 @@ type StateType = DashboardContentState & {
 
 const styles = () => {
   return createStyles({
-    itemsContainer: {
-      flex: 1,
-      overflowY: "auto",
+    wrapper: {
+      height: "100%",
     },
   });
 };
@@ -62,14 +61,14 @@ class Wallets extends DashboardContent<PropsType, StateType> {
     const { classes } = this.props;
 
     return (
-      <Grid container direction="column">
+      <Grid container direction="column" className={classes.wrapper}>
         {this.state.opendexdLocked || this.state.opendexdNotReady ? (
           <ViewDisabled
             opendexdLocked={this.state.opendexdLocked}
             opendexdStatus={this.state.opendexdStatus}
           />
         ) : (
-          <Grid container spacing={5} className={classes.itemsContainer}>
+          <Grid container spacing={5}>
             {balances && Object.keys(balances).length ? (
               Object.keys(balances).map((currency) => (
                 <WalletItem
