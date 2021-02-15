@@ -30,8 +30,8 @@ import {
 
 export type OverviewItemProps = {
   status: Status;
-  xudLocked?: boolean;
-  xudNotReady?: boolean;
+  opendexdLocked?: boolean;
+  opendexdNotReady?: boolean;
 };
 
 const downloadLogs = (serviceName: string, handleError: () => void): void => {
@@ -51,14 +51,14 @@ const downloadLogs = (serviceName: string, handleError: () => void): void => {
 };
 
 const OverviewItem = (props: OverviewItemProps): ReactElement => {
-  const { status, xudLocked, xudNotReady } = props;
+  const { status, opendexdLocked, opendexdNotReady } = props;
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [errorMsgOpen, setErrorMsgOpen] = useState(false);
 
   const isDetailsIconVisible = (status: Status): boolean => {
     return (
-      !xudLocked &&
-      !xudNotReady &&
+      !opendexdLocked &&
+      !opendexdNotReady &&
       SERVICES_WITH_ADDITIONAL_INFO.includes(status.service) &&
       isServiceReady(status)
     );

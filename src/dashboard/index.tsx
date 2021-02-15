@@ -141,7 +141,7 @@ const Dashboard = (): ReactElement => {
             component="p"
             color="textSecondary"
           >
-            XUD UI
+            OPENDEXD UI
           </Header>
           <MenuContainer>
             {menuItems.map((item) => (
@@ -169,7 +169,7 @@ const Dashboard = (): ReactElement => {
           </Grid> */}
           {isElectron() && (
             <Grid item container justify="center">
-              <Tooltip title="Disconnect from xud-docker" placement="top">
+              <Tooltip title="Disconnect from opendex-docker" placement="top">
                 <DrawerButton
                   size="small"
                   startIcon={<CachedIcon />}

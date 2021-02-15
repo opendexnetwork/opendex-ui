@@ -44,8 +44,8 @@ const fetchInfo = (
 };
 
 const createRows = (info: Info, status: Status): InfoRow[] => {
-  if (status.service === "xud") {
-    return createXudRows(status, info);
+  if (status.service === "opendexd") {
+    return createOpendexdRows(status, info);
   }
   if (status.service === "connext") {
     return createConnextRows(info);
@@ -58,7 +58,7 @@ const createRows = (info: Info, status: Status): InfoRow[] => {
   return [];
 };
 
-const createXudRows = (status: Status, info: Info): InfoRow[] => [
+const createOpendexdRows = (status: Status, info: Info): InfoRow[] => [
   { label: "Status", value: status.status },
   { label: "Alias", value: info.alias },
   {

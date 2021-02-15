@@ -53,10 +53,10 @@ class Wallets extends DashboardContent<PropsType, StateType> {
 
     return (
       <Grid container direction="column">
-        {this.state.xudLocked || this.state.xudNotReady ? (
+        {this.state.opendexdLocked || this.state.opendexdNotReady ? (
           <ViewDisabled
-            xudLocked={this.state.xudLocked}
-            xudStatus={this.state.xudStatus}
+            opendexdLocked={this.state.opendexdLocked}
+            opendexdStatus={this.state.opendexdStatus}
           />
         ) : (
           <ItemsContainer container spacing={5}>

@@ -4,18 +4,18 @@ import {
 } from "@material-ui/core";
 import ReportProblemOutlinedIcon from "@material-ui/icons/ReportProblemOutlined";
 import React, { ReactElement } from "react";
-import UnlockXud from "../unlockXud";
+import UnlockOpendexd from "../unlockOpendexd";
 
 //styles
 import { Row } from "./styles";
 
 export type ViewDisabledProps = {
-  xudLocked?: boolean;
-  xudStatus?: string;
+  opendexdLocked?: boolean;
+  opendexdStatus?: string;
 };
 
 function ViewDisabled(props: ViewDisabledProps): ReactElement {
-  const { xudLocked, xudStatus } = props;
+  const { opendexdLocked, opendexdStatus } = props;
   return (
     <Grid container direction="column" alignItems="center" justify="center">
       <Row
@@ -32,17 +32,17 @@ function ViewDisabled(props: ViewDisabledProps): ReactElement {
         </Grid>
         <Grid item>
           <Typography variant="h4" component="h1">
-            {xudLocked ? "XUD is locked" : "XUD is not ready"}
+            {opendexdLocked ? "opendexd is locked" : "opendexd is not ready"}
           </Typography>
         </Grid>
       </Row>
       <Row container item justify="center">
-        {xudLocked ? (
-          <UnlockXud />
+        {opendexdLocked ? (
+          <UnlockOpendexd />
         ) : (
           <Grid item>
             <Typography variant="h6" component="h2">
-              {xudStatus || ""}
+              {opendexdStatus || ""}
             </Typography>
           </Grid>
         )}

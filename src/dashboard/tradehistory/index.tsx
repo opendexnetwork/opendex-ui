@@ -141,10 +141,10 @@ class Tradehistory extends DashboardContent<PropsType, StateType> {
   render(): ReactElement {
     return (
       <Grid container direction="column">
-        {this.state.xudLocked || this.state.xudNotReady ? (
+        {this.state.opendexdLocked || this.state.opendexdNotReady ? (
           <ViewDisabled
-            xudLocked={this.state.xudLocked}
-            xudStatus={this.state.xudStatus}
+            opendexdLocked={this.state.opendexdLocked}
+            opendexdStatus={this.state.opendexdStatus}
           />
         ) : this.state.rows?.length ? (
           <>

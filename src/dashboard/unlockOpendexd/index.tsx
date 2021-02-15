@@ -6,7 +6,7 @@ import React, { ReactElement, useState } from "react";
 import ButtonWithLoading from "../../common/buttonWithLoading";
 import Password from "../../common/Password";
 import api from "../../api";
-import { getErrorMsg, XUD_ERROR_MESSAGES } from "../../common/errorUtil";
+import { getErrorMsg, OPENDEXD_ERROR_MESSAGES } from "../../common/errorUtil";
 
 //styles
 import {
@@ -14,7 +14,7 @@ import {
   ErrorMessageContainer
 } from "./styles";
 
-const UnlockXud = (): ReactElement => {
+const UnlockOpendexd = (): ReactElement => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [queryInProgress, setQueryInProgress] = useState(false);
@@ -26,7 +26,7 @@ const UnlockXud = (): ReactElement => {
       next: () => {},
       error: (err) => {
         const errorMessage = getErrorMsg(err);
-        setError(XUD_ERROR_MESSAGES[errorMessage] || errorMessage);
+        setError(OPENDEXD_ERROR_MESSAGES[errorMessage] || errorMessage);
         setQueryInProgress(false);
       },
     });
@@ -96,4 +96,4 @@ const UnlockXud = (): ReactElement => {
   );
 };
 
-export default UnlockXud;
+export default UnlockOpendexd;

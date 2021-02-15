@@ -27,7 +27,7 @@ const url =
     ? process.env.REACT_APP_API_URL
     : window.location.origin;
 const path = `${url}/api/v1`;
-const xudPath = `${path}/xud`;
+const opendexdPath = `${path}/opendexd`;
 const boltzPath = `${path}/boltz`;
 
 const logErr = (url: string, err: string): void => {
@@ -137,36 +137,36 @@ export default {
   },
 
   getinfo$(): Observable<Info> {
-    return fetchJsonResponse(`${xudPath}/getinfo`);
+    return fetchJsonResponse(`${opendexdPath}/getinfo`);
   },
 
   getbalance$(): Observable<GetbalanceResponse> {
-    return fetchJsonResponse(`${xudPath}/getbalance`);
+    return fetchJsonResponse(`${opendexdPath}/getbalance`);
   },
 
   tradinglimits$(): Observable<TradinglimitsResponse> {
-    return fetchJsonResponse(`${xudPath}/tradinglimits`);
+    return fetchJsonResponse(`${opendexdPath}/tradinglimits`);
   },
 
   tradehistory$(): Observable<TradehistoryResponse> {
-    return fetchJsonResponse(`${xudPath}/tradehistory`);
+    return fetchJsonResponse(`${opendexdPath}/tradehistory`);
   },
 
   listpairs$(): Observable<ListpairsResponse> {
-    return fetchJsonResponse(`${xudPath}/listpairs`);
+    return fetchJsonResponse(`${opendexdPath}/listpairs`);
   },
 
   listorders$(params: ListordersParams): Observable<ListordersResponse> {
-    return fetchJsonResponse(`${xudPath}/listorders`, undefined, params);
+    return fetchJsonResponse(`${opendexdPath}/listorders`, undefined, params);
   },
 
   orderbook$(params: OrderBookParams): Observable<OrderBookResponse> {
-    return fetchJsonResponse(`${xudPath}/orderbook`, undefined, params);
+    return fetchJsonResponse(`${opendexdPath}/orderbook`, undefined, params);
   },
 
   placeOrder$(params: PlaceOrderParams): Observable<void> {
     return fetchJsonResponse(
-      `${xudPath}/placeorder`,
+      `${opendexdPath}/placeorder`,
       JSON.stringify(params),
       undefined,
       "POST"
@@ -175,7 +175,7 @@ export default {
 
   removeOrder$(params: RemoveOrderParams): Observable<void> {
     return fetchJsonResponse(
-      `${xudPath}/removeorder`,
+      `${opendexdPath}/removeorder`,
       JSON.stringify(params),
       undefined,
       "POST"
@@ -209,7 +209,7 @@ export default {
 
   unlock$(password: string): Observable<void> {
     return fetchJsonResponse(
-      `${xudPath}/unlock`,
+      `${opendexdPath}/unlock`,
       JSON.stringify({ password }),
       undefined,
       "POST"
@@ -218,7 +218,7 @@ export default {
 
   changePassword$(newPassword: string, oldPassword: string): Observable<void> {
     return fetchJsonResponse(
-      `${xudPath}/changepass`,
+      `${opendexdPath}/changepass`,
       JSON.stringify({ newPassword, oldPassword }),
       undefined,
       "POST"
@@ -226,7 +226,7 @@ export default {
   },
 
   getMnemonic$(): Observable<GetMnemonicResponse> {
-    return fetchJsonResponse(`${xudPath}/getmnemonic`);
+    return fetchJsonResponse(`${opendexdPath}/getmnemonic`);
   },
 
   updateBackupDirectory$(location: string): Observable<void> {

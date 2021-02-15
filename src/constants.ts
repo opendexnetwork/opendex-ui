@@ -1,9 +1,9 @@
-export const XUD_DISCORD_URL = "https://discord.com/invite/YgDhMSn";
+export const OPENDEXD_DISCORD_URL = "https://discord.com/invite/YgDhMSn";
 
-export const XUD_DOCKER_DOCS_URL =
+export const OPENDEXD_DOCKER_DOCS_URL =
   "https://docs.exchangeunion.com/start-earning/market-maker-guide";
 
-export const XUD_NOT_READY = [
+export const OPENDEXD_NOT_READY = [
   "Error",
   "Container disabled",
   "Container exited",
@@ -13,7 +13,7 @@ export const XUD_NOT_READY = [
 ];
 
 export const SERVICES_WITH_ADDITIONAL_INFO = [
-  "xud",
+  "opendexd",
   "lndbtc",
   "lndltc",
   "connext",

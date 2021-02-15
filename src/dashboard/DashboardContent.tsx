@@ -10,7 +10,7 @@ import {
 } from "rxjs";
 import { exhaustMap } from "rxjs/operators";
 import api from "../api";
-import { isXudLocked, isXudReady } from "../common/serviceUtil";
+import { isOpendexdLocked, isOpendexdReady } from "../common/serviceUtil";
 import { Status } from "../models/Status";
 import { Path } from "../router/Path";
 
@@ -23,9 +23,9 @@ export type RefreshableData<T, S> = {
 };
 
 export type DashboardContentState = {
-  xudLocked?: boolean;
-  xudNotReady?: boolean;
-  xudStatus?: string;
+  opendexdLocked?: boolean;
+  opendexdNotReady?: boolean;
+  opendexdStatus?: string;
   initialLoadCompleted?: boolean;
 };
 
@@ -52,7 +52,7 @@ abstract class DashboardContent<
       .pipe(
         exhaustMap(() => this.checkStatus()),
         exhaustMap(() =>
-          (this.state.xudLocked || this.state.xudNotReady) &&
+          (this.state.opendexdLocked || this.state.opendexdNotReady) &&
           !data.isStatusQuery
             ? EMPTY
             : data.queryFn()
@@ -69,12 +69,12 @@ abstract class DashboardContent<
   }
 
   checkStatus(): Observable<Status> {
-    return api.statusByService$("xud").pipe(
+    return api.statusByService$("opendexd").pipe(
       exhaustMap((resp: Status) => {
         this.setState({
-          xudLocked: isXudLocked(resp),
-          xudNotReady: !isXudReady(resp),
-          xudStatus: resp.status,
+          opendexdLocked: isOpendexdLocked(resp),
+          opendexdNotReady: !isOpendexdReady(resp),
+          opendexdStatus: resp.status,
         });
         return of(resp);
       })
@@ -90,7 +90,7 @@ abstract class DashboardContent<
     return {
       next: (data: T) => {
         if (
-          (!this.state.xudLocked && !this.state.xudNotReady) ||
+          (!this.state.opendexdLocked && !this.state.opendexdNotReady) ||
           isStatusQuery
         ) {
           this.setState({ [stateProp]: data } as any);

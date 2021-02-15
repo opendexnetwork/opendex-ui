@@ -81,7 +81,7 @@ class Trade extends DashboardContent<PropsType, StateType> {
       timer(0, 2000)
         .pipe(
           mergeMap(() => super.checkStatus()),
-          filter(() => !this.state.xudLocked && !this.state.xudNotReady),
+          filter(() => !this.state.opendexdLocked && !this.state.opendexdNotReady),
           take(1),
           mergeMap(() => api.listpairs$()),
           retry(10)
@@ -125,10 +125,10 @@ class Trade extends DashboardContent<PropsType, StateType> {
     return (
       <Provider tradeStore={this.tradeStore}>
         <Grid container direction="column">
-          {this.state.xudLocked || this.state.xudNotReady ? (
+          {this.state.opendexdLocked || this.state.opendexdNotReady ? (
             <ViewDisabled
-              xudLocked={this.state.xudLocked}
-              xudStatus={this.state.xudStatus}
+              opendexdLocked={this.state.opendexdLocked}
+              opendexdStatus={this.state.opendexdStatus}
             />
           ) : (
             <Grid

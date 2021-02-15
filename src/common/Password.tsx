@@ -4,10 +4,10 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-} from "@material-ui/core";
+} from "../dashboard/unlockOpendexd/node_modules/@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import React, { ChangeEvent, ReactElement, useState } from "react";
+import React, { ChangeEvent, ReactElement, useState } from "../dashboard/unlockOpendexd/node_modules/react";
 
 type PasswordProps = {
   label?: string;

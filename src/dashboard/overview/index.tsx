@@ -35,7 +35,7 @@ class Overview extends DashboardContent<PropsType, StateType> {
   }
 
   sortingOrderByService = (service: string): number => {
-    if (service === "xud") {
+    if (service === "opendexd") {
       return 0;
     }
     if (["lndbtc", "lndltc", "connext"].includes(service)) {
@@ -69,8 +69,8 @@ class Overview extends DashboardContent<PropsType, StateType> {
               <OverviewItem
                 status={status}
                 key={status.service}
-                xudLocked={this.state.xudLocked}
-                xudNotReady={this.state.xudNotReady}
+                opendexdLocked={this.state.opendexdLocked}
+                opendexdNotReady={this.state.opendexdNotReady}
               ></OverviewItem>
             ))
         ) : (

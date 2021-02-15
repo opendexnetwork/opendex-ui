@@ -1,5 +1,5 @@
-import { Button } from "@material-ui/core";
-import React, { ReactElement } from "react";
+import { Button } from "../../dashboard/unlockOpendexd/node_modules/@material-ui/core";
+import React, { ReactElement } from "../../dashboard/unlockOpendexd/node_modules/react";
 
 //styles
 import {

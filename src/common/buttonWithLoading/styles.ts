@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { CircularProgress } from "@material-ui/core";
+import styled from "../../dashboard/unlockOpendexd/node_modules/styled-components";
+import { CircularProgress } from "../../dashboard/unlockOpendexd/node_modules/@material-ui/core";
 
 //types
 type ButtonProgressType = {
