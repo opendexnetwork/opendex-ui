@@ -54,6 +54,9 @@ type StateType = DashboardContentState & {
 
 const styles = () => {
   return createStyles({
+    wrapper: {
+      height: "100%",
+    },
     content: {
       flex: 1,
       overflowY: "auto",
@@ -150,7 +153,7 @@ class Tradehistory extends DashboardContent<PropsType, StateType> {
     const { classes } = this.props;
 
     return (
-      <Grid container direction="column">
+      <Grid container direction="column" className={classes.wrapper}>
         {this.state.opendexdLocked || this.state.opendexdNotReady ? (
           <ViewDisabled
             opendexdLocked={this.state.opendexdLocked}
