@@ -17,7 +17,7 @@ import { SERVICES_WITH_ADDITIONAL_INFO } from "../../constants";
 import { Info } from "../../models/Info";
 import { LndInfo } from "../../models/LndInfo";
 import { Status } from "../../models/Status";
-import { copyToClipboard } from "../../common/appUtil";
+import { copyToClipboard } from "../../common/utils/appUtil";
 
 export type ServiceDetailsContentProps = {
   status: Status;

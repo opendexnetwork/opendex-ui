@@ -1,8 +1,8 @@
 import { Grid, Typography } from "@material-ui/core";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Observable } from "rxjs";
-import { getErrorMsg } from "../../common/errorUtil";
-import QrCode from "../../common/QrCode";
+import { getErrorMsg } from "../../common/utils/errorUtil";
+import QrCode from "../../common/components/data-display/QrCode";
 import { Info } from "../../models/Info";
 import Address from "./Address";
 

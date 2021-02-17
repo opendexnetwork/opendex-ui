@@ -13,14 +13,14 @@ import { inject, observer } from "mobx-react";
 import CancelIcon from "@material-ui/icons/Cancel";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Subject } from "rxjs";
-import { isElectron, sendMessageToParent } from "../common/appUtil";
-import ErrorMessage from "../common/ErrorMessage";
-import SuccessMessage from "../common/SuccessMessage";
+import { isElectron, sendMessageToParent } from "../common/utils/appUtil";
+import ErrorMessage from "../common/components/data-display/ErrorMessage";
+import SuccessMessage from "../common/components/data-display/SuccessMessage";
 import { ElectronStore, ELECTRON_STORE } from "../stores/electronStore";
 import ActionButtons from "./ActionButtons";
 import { ConnectionType } from "../enums";
 import api from "../api";
-import { getErrorMsg } from "../common/errorUtil";
+import { getErrorMsg } from "../common/utils/errorUtil";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 
 type BackupDirectoryProps = {

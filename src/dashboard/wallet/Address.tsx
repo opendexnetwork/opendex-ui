@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
-import { copyToClipboard } from "../../common/appUtil";
+import { copyToClipboard } from "../../common/utils/appUtil";
 
 type AddressProps = {
   address: string;

@@ -8,10 +8,10 @@ import {
 import React, { ReactElement, useEffect, useState } from "react";
 import { combineLatest, Observable, Subject } from "rxjs";
 import api from "../../api";
-import { satsToCoinsStr } from "../../common/currencyUtil";
-import { getErrorMsg } from "../../common/errorUtil";
-import QrCode from "../../common/QrCode";
-import WarningMessage from "../../common/WarningMessage";
+import { satsToCoinsStr } from "../../common/utils/currencyUtil";
+import { getErrorMsg } from "../../common/utils/errorUtil";
+import QrCode from "../../common/components/data-display/QrCode";
+import WarningMessage from "../../common/components/data-display/WarningMessage";
 import { DepositResponse } from "../../models/DepositResponse";
 import { GetServiceInfoResponse } from "../../models/GetServiceInfoResponse";
 import { Info } from "../../models/Info";

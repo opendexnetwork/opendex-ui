@@ -20,8 +20,8 @@ import {
 import { interval } from "rxjs";
 import { filter, map, mergeMap, takeUntil } from "rxjs/operators";
 import api from "../api";
-import { isElectron, sendMessageToParent } from "../common/appUtil";
-import NotFound from "../common/NotFound";
+import { isElectron, sendMessageToParent } from "../common/utils/appUtil";
+import NotFound from "../common/components/NotFound";
 import { SetupStatusResponse } from "../models/SetupStatusResponse";
 import { Status } from "../models/Status";
 import { Path } from "../router/Path";

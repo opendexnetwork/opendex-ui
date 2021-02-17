@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { ReactElement } from "react";
-import { satsToCoinsStr } from "../../../common/currencyUtil";
+import { satsToCoinsStr } from "../../../common/utils/currencyUtil";
 import { Bucket } from "../../../models/OrderBookResponse";
 
 type OrdersProps = {

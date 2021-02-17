@@ -1,8 +1,8 @@
 import { FormControl, FormHelperText } from "@material-ui/core";
 import React, { ReactElement, useState } from "react";
 import api from "../../../api";
-import ButtonWithLoading from "../../../common/ButtonWithLoading";
-import { getErrorMsg } from "../../../common/errorUtil";
+import ButtonWithLoading from "../../../common/components/input/buttons/ButtonWithLoading";
+import { getErrorMsg } from "../../../common/utils/errorUtil";
 import { CancelledOrder, OrderRow } from "./OpenOrders";
 
 type CancelOrderProps = {

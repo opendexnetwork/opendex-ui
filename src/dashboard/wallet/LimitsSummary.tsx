@@ -1,7 +1,7 @@
 import { Tooltip } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import React, { ReactElement } from "react";
-import { satsToCoinsStr } from "../../common/currencyUtil";
+import { satsToCoinsStr } from "../../common/utils/currencyUtil";
 import { TradingLimits } from "../../models/TradingLimits";
 import WalletRow from "./WalletRow";
 

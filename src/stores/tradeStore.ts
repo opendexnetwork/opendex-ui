@@ -1,5 +1,5 @@
 import { observable } from "mobx";
-import { satsToCoins } from "../common/currencyUtil";
+import { satsToCoins } from "../common/utils/currencyUtil";
 import {
   calculateProduct,
   getLimitForAsset,

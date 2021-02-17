@@ -3,13 +3,18 @@ import { inject, observer } from "mobx-react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { combineLatest, Subscription, timer } from "rxjs";
 import { exhaustMap, retry } from "rxjs/operators";
-import { getComparator, stableSort } from "../../../common/sorting/SortingUtil";
+import { getComparator, stableSort } from "../../../common/utils/SortingUtil";
 import api from "../../../api";
-import { satsToCoins, satsToCoinsStr } from "../../../common/currencyUtil";
-import ErrorMessage from "../../../common/ErrorMessage";
-import { getErrorMsg } from "../../../common/errorUtil";
-import Loader from "../../../common/Loader";
-import Table, { TableHeader } from "../../../common/Table";
+import {
+  satsToCoins,
+  satsToCoinsStr,
+} from "../../../common/utils/currencyUtil";
+import ErrorMessage from "../../../common/components/data-display/ErrorMessage";
+import { getErrorMsg } from "../../../common/utils/errorUtil";
+import Loader from "../../../common/components/data-display/loader/Loader";
+import Table, {
+  TableHeader,
+} from "../../../common/components/data-display/table/Table";
 import { OrderOwner } from "../../../enums";
 import { Order } from "../../../models/Order";
 import { Trade } from "../../../models/Trade";

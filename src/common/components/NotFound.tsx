@@ -1,6 +1,6 @@
 import { createStyles, Grid, makeStyles, Theme } from "@material-ui/core";
 import React, { ReactElement } from "react";
-import notFoundImg from "../assets/404.png";
+import notFoundImg from "../../assets/404.png";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

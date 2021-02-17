@@ -12,7 +12,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import React, { ReactElement } from "react";
 import { Subject } from "rxjs";
-import { isLnd } from "../../common/currencyUtil";
+import { isLnd } from "../../common/utils/currencyUtil";
 import { WalletItemViewType } from "./WalletItem";
 
 type WalletItemHeaderProps = {

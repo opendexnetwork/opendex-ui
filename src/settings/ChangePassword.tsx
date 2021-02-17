@@ -3,10 +3,10 @@ import { inject, observer } from "mobx-react";
 import React, { ReactElement, useState } from "react";
 import { Subject } from "rxjs";
 import api from "../api";
-import ErrorMessage from "../common/ErrorMessage";
-import { getErrorMsg } from "../common/errorUtil";
-import Password from "../common/Password";
-import SuccessMessage from "../common/SuccessMessage";
+import ErrorMessage from "../common/components/data-display/ErrorMessage";
+import { getErrorMsg } from "../common/utils/errorUtil";
+import Password from "../common/components/input/Password";
+import SuccessMessage from "../common/components/data-display/SuccessMessage";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 import ActionButtons from "./ActionButtons";
 

@@ -1,6 +1,6 @@
 import { Button, createStyles, Grid, makeStyles } from "@material-ui/core";
 import React, { ReactElement } from "react";
-import ButtonWithLoading from "../common/ButtonWithLoading";
+import ButtonWithLoading from "../common/components/input/buttons/ButtonWithLoading";
 
 type ActionButtonsProps = {
   primaryButtonOnClick: () => void;

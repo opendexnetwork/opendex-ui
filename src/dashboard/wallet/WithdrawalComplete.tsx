@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { ReactElement } from "react";
-import { satsToCoinsStr } from "../../common/currencyUtil";
+import { satsToCoinsStr } from "../../common/utils/currencyUtil";
 import CheckBoltzTransactionStatus from "./CheckBoltzTransactionStatus";
 
 type WithdrawalCompleteProps = {

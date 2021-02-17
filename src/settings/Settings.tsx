@@ -21,10 +21,10 @@ import {
 import { timer } from "rxjs";
 import { exhaustMap } from "rxjs/operators";
 import api from "../api";
-import ErrorMessage from "../common/ErrorMessage";
-import { getErrorMsg } from "../common/errorUtil";
-import Loader from "../common/Loader";
-import { isOpendexdLocked, isOpendexdReady } from "../common/serviceUtil";
+import ErrorMessage from "../common/components/data-display/ErrorMessage";
+import { getErrorMsg } from "../common/utils/errorUtil";
+import Loader from "../common/components/data-display/loader/Loader";
+import { isOpendexdLocked, isOpendexdReady } from "../common/utils/serviceUtil";
 import ViewDisabled from "../dashboard/ViewDisabled";
 import { Status } from "../models/Status";
 import { Path } from "../router/Path";
