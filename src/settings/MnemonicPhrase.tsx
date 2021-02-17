@@ -12,7 +12,7 @@ import { inject, observer } from "mobx-react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import api from "../api";
-import { getErrorMsg } from "../common/errorUtil";
+import { getErrorMsg } from "../common/utils/errorUtil";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 import ActionButtons from "./ActionButtons";
 

@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import { interval } from "rxjs";
 import { catchError, exhaustMap, filter, take } from "rxjs/operators";
 import api from "../api";
-import WarningMessage from "../common/WarningMessage";
+import WarningMessage from "../common/components/data-display/WarningMessage";
 import { Path } from "../router/Path";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 

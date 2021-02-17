@@ -1,7 +1,7 @@
 import { from, fromEvent, Observable, of, throwError } from "rxjs";
 import { catchError, mergeMap } from "rxjs/operators";
 import io from "socket.io-client";
-import { logError } from "./common/appUtil";
+import { logError } from "./common/utils/appUtil";
 import { BackupInfo } from "./models/BackupInfo";
 import { CreateReverseSwapRequest } from "./models/CreateReverseSwapRequest";
 import { CreateReverseSwapResponse } from "./models/CreateReverseSwapResponse";

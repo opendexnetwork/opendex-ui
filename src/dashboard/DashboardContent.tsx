@@ -10,7 +10,7 @@ import {
 } from "rxjs";
 import { exhaustMap } from "rxjs/operators";
 import api from "../api";
-import { isOpendexdLocked, isOpendexdReady } from "../common/serviceUtil";
+import { isOpendexdLocked, isOpendexdReady } from "../common/utils/serviceUtil";
 import { Status } from "../models/Status";
 import { Path } from "../router/Path";
 

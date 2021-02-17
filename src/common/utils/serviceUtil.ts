@@ -1,5 +1,5 @@
-import { OPENDEXD_NOT_READY } from "../constants";
-import { Status } from "../models/Status";
+import { OPENDEXD_NOT_READY } from "../../constants";
+import { Status } from "../../models/Status";
 
 export const isServiceReady = (status: Status): boolean => {
   return (

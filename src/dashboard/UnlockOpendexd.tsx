@@ -6,10 +6,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { ReactElement, useState } from "react";
-import ButtonWithLoading from "../common/ButtonWithLoading";
+import ButtonWithLoading from "../common/components/input/buttons/ButtonWithLoading";
 import api from "../api";
-import { getErrorMsg, OPENDEXD_ERROR_MESSAGES } from "../common/errorUtil";
-import Password from "../common/Password";
+import {
+  getErrorMsg,
+  OPENDEXD_ERROR_MESSAGES,
+} from "../common/utils/errorUtil";
+import Password from "../common/components/input/Password";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

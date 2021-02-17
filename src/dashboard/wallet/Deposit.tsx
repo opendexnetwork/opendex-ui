@@ -1,8 +1,8 @@
 import React, { ReactElement, useState } from "react";
 import { Observable, Subject } from "rxjs";
-import { isLnd } from "../../common/currencyUtil";
-import ErrorMessage from "../../common/ErrorMessage";
-import Loader from "../../common/Loader";
+import { isLnd } from "../../common/utils/currencyUtil";
+import ErrorMessage from "../../common/components/data-display/ErrorMessage";
+import Loader from "../../common/components/data-display/loader/Loader";
 import { Info } from "../../models/Info";
 import BoltzDeposit from "./BoltzDeposit";
 import ConnextDeposit from "./ConnextDeposit";

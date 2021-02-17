@@ -8,18 +8,21 @@ import {
 } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import React, { ReactElement, useState } from "react";
-import ButtonWithLoading from "../../common/ButtonWithLoading";
-import { satsToCoinsStr } from "../../common/currencyUtil";
-import ErrorMessage from "../../common/ErrorMessage";
-import { BOLTZ_ERROR_MESSAGES, getErrorMsg } from "../../common/errorUtil";
-import QrCode from "../../common/QrCode";
+import ButtonWithLoading from "../../common/components/input/buttons/ButtonWithLoading";
+import { satsToCoinsStr } from "../../common/utils/currencyUtil";
+import ErrorMessage from "../../common/components/data-display/ErrorMessage";
+import {
+  BOLTZ_ERROR_MESSAGES,
+  getErrorMsg,
+} from "../../common/utils/errorUtil";
+import QrCode from "../../common/components/data-display/QrCode";
 import { Fees } from "../../models/BoltzFees";
 import { CreateReverseSwapResponse } from "../../models/CreateReverseSwapResponse";
 import { GetServiceInfoResponse } from "../../models/GetServiceInfoResponse";
 import Address from "./Address";
 import BoltzFeeInfo from "./BoltzFeeInfo";
 import { withdraw } from "./walletUtil";
-import WarningMessage from "../../common/WarningMessage";
+import WarningMessage from "../../common/components/data-display/WarningMessage";
 
 type WithdrawAddressProps = {
   currency: string;

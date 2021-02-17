@@ -17,7 +17,7 @@ import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import CloseIcon from "@material-ui/icons/Close";
 import SortIcon from "@material-ui/icons/Sort";
 import React, { ReactElement, useState } from "react";
-import { SortingOrder } from "./SortingUtil";
+import { SortingOrder } from "../../../utils/SortingUtil";
 
 export type SortingOptionsProps<T> = {
   sortOpts: SortOption<T>[];

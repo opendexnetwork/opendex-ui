@@ -7,8 +7,8 @@ import {
 } from "@material-ui/core";
 import GetAppOutlinedIcon from "@material-ui/icons/GetAppOutlined";
 import React, { ReactElement } from "react";
-import CSVLink from "../../common/csv/CsvLink";
-import { formatDateTimeForFilename } from "../../common/dateUtil";
+import CSVLink from "../../common/components/navigation/csv/CsvLink";
+import { formatDateTimeForFilename } from "../../common/utils/dateUtil";
 import { TradeHeader, TradeRow } from "./Tradehistory";
 
 export type TradehistoryDownloadProps = {

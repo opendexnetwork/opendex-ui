@@ -9,8 +9,8 @@ import {
 import Link from "@material-ui/core/Link";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import React, { ReactElement } from "react";
-import { openLink } from "../../common/appUtil";
-import { satsToCoinsStr } from "../../common/currencyUtil";
+import { openLink } from "../../common/utils/appUtil";
+import { satsToCoinsStr } from "../../common/utils/currencyUtil";
 import { Fees } from "../../models/BoltzFees";
 
 type BoltzFeeInfoProps = {

@@ -15,8 +15,8 @@ import {
   coinsToSats,
   satsToCoins,
   satsToCoinsStr,
-} from "../../common/currencyUtil";
-import NumberInput from "../../common/NumberInput";
+} from "../../common/utils/currencyUtil";
+import NumberInput from "../../common/components/input/NumberInput";
 import { GetServiceInfoResponse } from "../../models/GetServiceInfoResponse";
 import { getMaxWithdrawAmount, isAmountBetweenLimits } from "./walletUtil";
 

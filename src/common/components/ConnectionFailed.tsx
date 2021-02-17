@@ -8,8 +8,8 @@ import {
 } from "@material-ui/core";
 import React, { ReactElement, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Path } from "../router/Path";
-import { isElectron, sendMessageToParent } from "./appUtil";
+import { Path } from "../../router/Path";
+import { isElectron, sendMessageToParent } from "../utils/appUtil";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { ReactElement } from "react";
-import NumberInput from "../../../common/NumberInput";
+import NumberInput from "../../../common/components/input/NumberInput";
 import { OrderType } from "../../../enums";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
 import { isMarketOrder } from "../tradeUtil";

@@ -1,10 +1,10 @@
 import { Grid } from "@material-ui/core";
 import React, { ReactElement, useEffect, useState } from "react";
 import api from "../../api";
-import { getCurrencyFullName } from "../../common/currencyUtil";
-import ErrorMessage from "../../common/ErrorMessage";
-import { getErrorMsg } from "../../common/errorUtil";
-import Loader from "../../common/Loader";
+import { getCurrencyFullName } from "../../common/utils/currencyUtil";
+import ErrorMessage from "../../common/components/data-display/ErrorMessage";
+import { getErrorMsg } from "../../common/utils/errorUtil";
+import Loader from "../../common/components/data-display/loader/Loader";
 import { GetServiceInfoResponse } from "../../models/GetServiceInfoResponse";
 import WithdrawAddress from "./WithdrawAddress";
 import WithdrawalComplete from "./WithdrawalComplete";

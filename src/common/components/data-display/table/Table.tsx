@@ -9,8 +9,8 @@ import {
 } from "@material-ui/core";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
-import { copyToClipboard } from "./appUtil";
-import CenterEllipsis from "./CenterEllipsis";
+import { copyToClipboard } from "../../../utils/appUtil";
+import CenterEllipsis from "../CenterEllipsis";
 
 export type TableRow = {
   [key: string]: string | number | boolean | Date | ReactElement | undefined;

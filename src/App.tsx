@@ -8,17 +8,21 @@ import {
   Route,
   Switch,
 } from "react-router-dom";
-import ConnectionFailed from "./common/ConnectionFailed";
-import NotFound from "./common/NotFound";
+import ConnectionFailed from "./common/components/ConnectionFailed";
+import NotFound from "./common/components/NotFound";
 import Dashboard from "./dashboard/Dashboard";
 import { Path } from "./router/Path";
 import { darkTheme } from "./themes";
 import { useElectronStore } from "./stores/electronStore";
 import { Provider } from "mobx-react";
-import { isElectron, logError, sendMessageToParent } from "./common/appUtil";
+import {
+  isElectron,
+  logError,
+  sendMessageToParent,
+} from "./common/utils/appUtil";
 import { useBackupStore } from "./stores/backupStore";
 import api from "./api";
-import { getErrorMsg } from "./common/errorUtil";
+import { getErrorMsg } from "./common/utils/errorUtil";
 import { timer } from "rxjs";
 import { exhaustMap, retry } from "rxjs/operators";
 
