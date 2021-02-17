@@ -13,6 +13,8 @@ import {
   withStyles,
   WithStyles,
 } from "@material-ui/core";
+import Code from "../../common/components/data-display/text/Code";
+import ErrorMessage from "../../common/components/data-display/ErrorMessage";
 
 type PropsType = RouteComponentProps<{ param1: string }> &
   WithStyles<typeof styles> & {
@@ -34,13 +36,6 @@ const styles = (theme: Theme) => {
     },
     title: {
       marginBottom: theme.spacing(2),
-    },
-    code: {
-      backgroundColor: theme.palette.background.paper,
-      padding: `0px ${theme.spacing(1)}px`,
-      borderRadius: 5,
-      letterSpacing: 2,
-      fontFamily: "monospace",
     },
     terminalContainer: {
       height: "90%",
@@ -213,11 +208,13 @@ class Console extends Component<PropsType, StateType> {
     return (
       <div className={classes.wrapper}>
         <Typography component="p" variant="body2" className={classes.title}>
-          Type {<span className={classes.code}>help</span>} to show a list of
-          available commands
+          Type {<Code text="help" />} to show a list of available commands
         </Typography>
         {this.state.error && (
-          <div>Error: {JSON.stringify(this.state.error)}</div>
+          <ErrorMessage
+            mainMessage="Error"
+            details={JSON.stringify(this.state.error)}
+          />
         )}
         <div className={classes.terminalContainer} ref={this.ref} />
       </div>

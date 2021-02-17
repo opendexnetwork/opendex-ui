@@ -26,7 +26,9 @@ import { SetupStatusResponse } from "../models/SetupStatusResponse";
 import { Status } from "../models/Status";
 import { Path } from "../router/Path";
 import Console from "./console/Console";
-import MenuItem, { MenuItemProps } from "./menu/MenuItem";
+import MenuItem, {
+  MenuItemProps,
+} from "../common/components/navigation/MenuItem";
 import Overview from "./overview/Overview";
 // import SetupWarning from "./SetupWarning";
 import Trade from "./trade/Trade";

@@ -9,7 +9,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import React, { ComponentClass, ElementType, ReactElement } from "react";
 import { NavLink, useLocation, useRouteMatch } from "react-router-dom";
-import { Path } from "../../router/Path";
+import { Path } from "../../../router/Path";
 
 export type MenuItemProps = {
   path: Path;

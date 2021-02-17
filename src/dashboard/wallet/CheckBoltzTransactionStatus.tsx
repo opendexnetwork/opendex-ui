@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
+import Code from "../../common/components/data-display/text/Code";
 import { copyToClipboard } from "../../common/utils/appUtil";
 
 type CheckBoltzTransactionStatusProps = {
@@ -21,13 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     row: {
       paddingTop: theme.spacing(1),
-    },
-    code: {
-      backgroundColor: theme.palette.background.default,
-      padding: theme.spacing(1),
-      borderRadius: 5,
-      letterSpacing: 2,
-      fontFamily: "monospace",
     },
     iconContainer: {
       display: "flex",
@@ -60,13 +54,7 @@ const CheckBoltzTransactionStatus = (
         spacing={1}
       >
         <Grid item>
-          <Typography
-            component="span"
-            variant="caption"
-            className={classes.code}
-          >
-            {command}
-          </Typography>
+          <Code text={command} backgroundColor="default" />
         </Grid>
         <Grid item className={classes.iconContainer}>
           <Tooltip title="Copy">

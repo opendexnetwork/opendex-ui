@@ -6,7 +6,7 @@ import { RouteComponentProps, withRouter } from "react-router-dom";
 import { timer } from "rxjs";
 import { exhaustMap, shareReplay } from "rxjs/operators";
 import api from "../../api";
-import PageCircularProgress from "../../common/components/data-display/loader/PageLoader";
+import PageLoader from "../../common/components/data-display/loader/PageLoader";
 import { GetbalanceResponse } from "../../models/GetbalanceResponse";
 import { TradinglimitsResponse } from "../../models/TradinglimitsResponse";
 import DashboardContent, { DashboardContentState } from "../DashboardContent";
@@ -85,7 +85,7 @@ class Wallets extends DashboardContent<PropsType, StateType> {
                 No wallets found
               </Grid>
             ) : (
-              <PageCircularProgress />
+              <PageLoader />
             )}
           </Grid>
         )}

@@ -7,7 +7,7 @@ import { interval, timer } from "rxjs";
 import { filter, mergeMap, retry, take } from "rxjs/operators";
 import api from "../../api";
 import { getErrorMsg } from "../../common/utils/errorUtil";
-import PageCircularProgress from "../../common/components/data-display/loader/PageLoader";
+import PageLoader from "../../common/components/data-display/loader/PageLoader";
 import { Path } from "../../router/Path";
 import DashboardContent, { DashboardContentState } from "../DashboardContent";
 import ViewDisabled from "../ViewDisabled";
@@ -193,7 +193,7 @@ class Trade extends DashboardContent<PropsType, StateType> {
                   />
                 </Grid>
               ) : (
-                <PageCircularProgress />
+                <PageLoader />
               )}
             </Grid>
           )}

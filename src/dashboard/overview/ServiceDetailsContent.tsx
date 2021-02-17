@@ -1,15 +1,10 @@
 import {
-  CircularProgress,
   createStyles,
   DialogContent,
-  Divider,
-  Grid,
   makeStyles,
   Theme,
   Typography,
 } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Subscription } from "rxjs";
 import api from "../../api";
@@ -17,7 +12,8 @@ import { SERVICES_WITH_ADDITIONAL_INFO } from "../../constants";
 import { Info } from "../../models/Info";
 import { LndInfo } from "../../models/LndInfo";
 import { Status } from "../../models/Status";
-import { copyToClipboard } from "../../common/utils/appUtil";
+import Loader from "../../common/components/data-display/loader/Loader";
+import LabeledRow from "../../common/components/data-display/LabeledRow";
 
 export type ServiceDetailsContentProps = {
   status: Status;
@@ -34,12 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
       padding: 0,
-    },
-    contentCell: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      wordWrap: "break-word",
-      whiteSpace: "pre-wrap",
     },
     textRow: {
       padding: theme.spacing(3),
@@ -156,33 +146,16 @@ const ServiceDetailsContent = (
     <DialogContent className={classes.content}>
       {initialLoadComplete ? (
         rows?.map((row) => (
-          <Grid
+          <LabeledRow
             key={row.label}
-            container
-            item
-            justify="space-between"
-            alignItems="center"
-          >
-            <Grid item xs={3} md={2} className={classes.contentCell}>
-              <strong>{row.label}</strong>
-            </Grid>
-            <Divider orientation="vertical" flexItem />
-            <Grid item xs={6} md={8} className={classes.contentCell}>
-              {row.value}
-            </Grid>
-            <Grid item xs={2} md={1} className={classes.contentCell}>
-              {row.copyIcon && (
-                <IconButton onClick={() => copyToClipboard(row.value)}>
-                  <FileCopyOutlinedIcon fontSize="small" />
-                </IconButton>
-              )}
-            </Grid>
-          </Grid>
+            label={row.label}
+            value={row.value}
+            showCopyIcon={row.copyIcon}
+            reserveSpaceForCopyIcon
+          />
         ))
       ) : (
-        <Grid container className={classes.loaderContainer}>
-          <CircularProgress color="inherit" />
-        </Grid>
+        <Loader />
       )}
       {!rows?.length &&
         !SERVICES_WITH_ADDITIONAL_INFO.includes(status.service) && (

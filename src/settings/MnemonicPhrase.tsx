@@ -1,6 +1,5 @@
 import {
   Checkbox,
-  CircularProgress,
   createStyles,
   FormControlLabel,
   Grid,
@@ -12,6 +11,7 @@ import { inject, observer } from "mobx-react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import api from "../api";
+import Loader from "../common/components/data-display/loader/Loader";
 import { getErrorMsg } from "../common/utils/errorUtil";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 import ActionButtons from "./ActionButtons";
@@ -101,9 +101,7 @@ const MnemonicPhrase = inject(BACKUP_STORE)(
             </>
           ) : (
             <>
-              <Grid item container justify="center" alignItems="center">
-                <CircularProgress color="inherit" />
-              </Grid>
+              <Loader />
               <Grid item container />
             </>
           )}

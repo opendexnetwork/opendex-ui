@@ -17,7 +17,7 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-const PageCircularProgress = (): ReactElement => {
+const PageLoader = (): ReactElement => {
   const classes = useStyles();
   return (
     <Box className={classes.container}>
@@ -26,4 +26,4 @@ const PageCircularProgress = (): ReactElement => {
   );
 };
 
-export default PageCircularProgress;
+export default PageLoader;
