@@ -3,7 +3,7 @@ import React, { ReactElement } from "react";
 import { RouteComponentProps, withRouter } from "react-router-dom";
 import api from "../../api";
 import { satsToCoins } from "../../common/utils/currencyUtil";
-import PageCircularProgress from "../../common/components/data-display/loader/PageLoader";
+import PageLoader from "../../common/components/data-display/loader/PageLoader";
 import SortingOptions, {
   SortOption,
 } from "../../common/components/data-display/table/SortingOptions";
@@ -193,7 +193,7 @@ class Tradehistory extends DashboardContent<PropsType, StateType> {
             No trades to display
           </Grid>
         ) : (
-          <PageCircularProgress />
+          <PageLoader />
         )}
       </Grid>
     );

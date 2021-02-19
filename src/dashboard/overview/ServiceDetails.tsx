@@ -39,6 +39,7 @@ const ServiceDetails = (props: ServiceDetailsProps): ReactElement => {
   const classes = useStyles();
 
   return (
+    /* Dialog */
     <Dialog
       open
       onClose={handleClose}
@@ -54,6 +55,7 @@ const ServiceDetails = (props: ServiceDetailsProps): ReactElement => {
           wrap="nowrap"
         >
           <Grid item container xs lg>
+            {/* IconButton */}
             <IconButton onClick={handleClose}>
               <CloseIcon />
             </IconButton>
