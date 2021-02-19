@@ -1,6 +1,6 @@
 import { createStyles, Grid, withStyles, WithStyles } from "@material-ui/core";
 import React, { ReactElement } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import api from "../../api";
 import { satsToCoins } from "../../common/utils/currencyUtil";
 import PageLoader from "../../common/components/data-display/loader/PageLoader";
@@ -16,9 +16,13 @@ import Table from "../../common/components/data-display/table/Table";
 import { OrderRole } from "../../enums";
 import { Trade } from "../../models/Trade";
 import { TradehistoryResponse } from "../../models/TradehistoryResponse";
-import DashboardContent, { DashboardContentState } from "../DashboardContent";
+import DashboardContent, {
+  DashboardContentProps,
+  DashboardContentState,
+} from "../DashboardContent";
 import ViewDisabled from "../ViewDisabled";
 import TradehistoryDownload from "./TradehistoryDownload";
+import { inject, observer } from "mobx-react";
 
 export type TradeRow = {
   swapHash: string;
@@ -42,8 +46,7 @@ export type TradeHeader = {
   gridsXl?: 1 | 2 | 3 | 4;
 };
 
-type PropsType = RouteComponentProps<{ param1: string }> &
-  WithStyles<typeof styles>;
+type PropsType = DashboardContentProps & WithStyles<typeof styles>;
 
 type StateType = DashboardContentState & {
   trades?: TradehistoryResponse;
@@ -69,6 +72,10 @@ const getRowId = (row: TradeRow): string => {
   return row.swapHash ? row.swapHash : row.orderId + Math.random();
 };
 
+@inject((stores) => ({
+  serviceStore: (stores as any).serviceStore,
+}))
+@observer
 class Tradehistory extends DashboardContent<PropsType, StateType> {
   tableHeaders: TradeHeader[] = [
     { label: "Swap hash", key: "swapHash", copyIcon: true, gridsXl: 3 },

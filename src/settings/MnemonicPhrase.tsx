@@ -12,6 +12,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import api from "../api";
 import Loader from "../common/components/data-display/loader/Loader";
+import OpendexdDependent from "../common/components/OpendexdDependent";
 import { getErrorMsg } from "../common/utils/errorUtil";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 import ActionButtons from "./ActionButtons";
@@ -49,14 +50,13 @@ const MnemonicPhrase = inject(BACKUP_STORE)(
       useEffect(() => {
         api.getMnemonic$().subscribe({
           next: (resp) => {
-            backupStore!.setMnemonicShown(true);
             setMnemonic(resp.seed_mnemonic);
           },
           error: (err) => setError(getErrorMsg(err)),
         });
       }, [backupStore]);
 
-      return (
+      const comp = (
         <>
           {error ? (
             <Grid item container justify="center" alignItems="center">
@@ -93,7 +93,10 @@ const MnemonicPhrase = inject(BACKUP_STORE)(
               </Grid>
 
               <ActionButtons
-                primaryButtonOnClick={() => onCompleteSubject.next(true)}
+                primaryButtonOnClick={() => {
+                  backupStore!.setMnemonicShown(true);
+                  onCompleteSubject.next(true);
+                }}
                 primaryButtonText="Next"
                 primaryButtonDisabled={!checked}
                 hideSecondaryButton
@@ -107,6 +110,7 @@ const MnemonicPhrase = inject(BACKUP_STORE)(
           )}
         </>
       );
+      return <OpendexdDependent comp={comp} />;
     }
   )
 );

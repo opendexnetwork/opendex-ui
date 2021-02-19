@@ -9,6 +9,7 @@ import Password from "../common/components/input/Password";
 import SuccessMessage from "../common/components/data-display/SuccessMessage";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 import ActionButtons from "./ActionButtons";
+import OpendexdDependent from "../common/components/OpendexdDependent";
 
 type ChangePasswordProps = {
   isSetup?: boolean;
@@ -68,7 +69,7 @@ const ChangePassword = inject(BACKUP_STORE)(
         });
       };
 
-      return (
+      const comp = (
         <>
           <Grid item container justify="center" direction="column">
             {!isSetup && (
@@ -156,6 +157,7 @@ const ChangePassword = inject(BACKUP_STORE)(
           />
         </>
       );
+      return <OpendexdDependent comp={comp} />;
     }
   )
 );

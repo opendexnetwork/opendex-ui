@@ -8,11 +8,10 @@ import {
   Subscription,
   timer,
 } from "rxjs";
-import { exhaustMap } from "rxjs/operators";
-import api from "../api";
-import { isOpendexdLocked, isOpendexdReady } from "../common/utils/serviceUtil";
+import { exhaustMap, retry } from "rxjs/operators";
 import { Status } from "../models/Status";
 import { Path } from "../router/Path";
+import { ServiceStore } from "../stores/serviceStore";
 
 export type RefreshableData<T, S> = {
   queryFn: (serviceName?: string) => Observable<T>;
@@ -29,8 +28,12 @@ export type DashboardContentState = {
   initialLoadCompleted?: boolean;
 };
 
+export type DashboardContentProps = RouteComponentProps<{ param1: string }> & {
+  serviceStore?: ServiceStore;
+};
+
 abstract class DashboardContent<
-  P extends RouteComponentProps<{ param1: string }>,
+  P extends DashboardContentProps,
   S extends DashboardContentState
 > extends Component<P, S> {
   protected subs: Subscription = new Subscription();
@@ -56,7 +59,8 @@ abstract class DashboardContent<
           !data.isStatusQuery
             ? EMPTY
             : data.queryFn()
-        )
+        ),
+        retry(3)
       )
       .subscribe(
         this.handleResponse(
@@ -68,17 +72,14 @@ abstract class DashboardContent<
       );
   }
 
-  checkStatus(): Observable<Status> {
-    return api.statusByService$("opendexd").pipe(
-      exhaustMap((resp: Status) => {
-        this.setState({
-          opendexdLocked: isOpendexdLocked(resp),
-          opendexdNotReady: !isOpendexdReady(resp),
-          opendexdStatus: resp.status,
-        });
-        return of(resp);
-      })
-    );
+  checkStatus(): Observable<Status | undefined> {
+    const serviceStore = this.props.serviceStore!;
+    this.setState({
+      opendexdLocked: serviceStore.opendexdLocked,
+      opendexdNotReady: !serviceStore.opendexdReady,
+      opendexdStatus: serviceStore.opendexdStatus?.status,
+    });
+    return of(serviceStore.opendexdStatus);
   }
 
   handleResponse<T>(

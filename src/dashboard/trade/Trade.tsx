@@ -2,14 +2,16 @@ import { createStyles, Theme, WithStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import React, { ReactElement } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
-import { interval, timer } from "rxjs";
+import { withRouter } from "react-router-dom";
+import { timer } from "rxjs";
 import { filter, mergeMap, retry, take } from "rxjs/operators";
 import api from "../../api";
 import { getErrorMsg } from "../../common/utils/errorUtil";
 import PageLoader from "../../common/components/data-display/loader/PageLoader";
-import { Path } from "../../router/Path";
-import DashboardContent, { DashboardContentState } from "../DashboardContent";
+import DashboardContent, {
+  DashboardContentProps,
+  DashboardContentState,
+} from "../DashboardContent";
 import ViewDisabled from "../ViewDisabled";
 import OpenOrders from "./openOrders/OpenOrders";
 import OrderBook from "./orderBook/OrderBook";
@@ -18,10 +20,9 @@ import PlaceOrder from "./placeOrder/PlaceOrder";
 import ErrorMessage from "../../common/components/data-display/ErrorMessage";
 import { useTradeStore } from "../../stores/tradeStore";
 import { OrderType } from "../../enums";
-import { Provider } from "mobx-react";
+import { inject, observer, Provider } from "mobx-react";
 
-type PropsType = RouteComponentProps<{ param1: string }> &
-  WithStyles<typeof styles>;
+type PropsType = DashboardContentProps & WithStyles<typeof styles>;
 
 type StateType = DashboardContentState & {
   pairs: string[] | undefined;
@@ -58,6 +59,10 @@ const styles = (theme: Theme) => {
   });
 };
 
+@inject((stores) => ({
+  serviceStore: (stores as any).serviceStore,
+}))
+@observer
 class Trade extends DashboardContent<PropsType, StateType> {
   constructor(props: PropsType) {
     super(props);
@@ -105,19 +110,6 @@ class Trade extends DashboardContent<PropsType, StateType> {
             this.setState({
               initialLoadCompleted: true,
               error: getErrorMsg(err),
-            }),
-        })
-    );
-    this.subs.add(
-      interval(5000)
-        .pipe(
-          mergeMap(() => super.checkStatus()),
-          retry(2)
-        )
-        .subscribe({
-          error: () =>
-            this.props.history.push({
-              pathname: Path.CONNECTION_FAILED,
             }),
         })
     );
