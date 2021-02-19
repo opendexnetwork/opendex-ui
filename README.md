@@ -27,3 +27,7 @@ A graphical user interface for interacting with an [opendex-docker](https://gith
 ### Lint
 
 `yarn lint`
+
+### Develop view components
+
+`yarn storybook`
