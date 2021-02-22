@@ -2,7 +2,6 @@ import {
   Card,
   createStyles,
   Grid,
-  IconButton,
   makeStyles,
   Theme,
   Typography,
@@ -10,6 +9,7 @@ import {
 import WarningIcon from "@material-ui/icons/Warning";
 import React, { ReactElement } from "react";
 import CloseIcon from "@material-ui/icons/Close";
+import IconButton from "../input/buttons/IconButton";
 
 type WarningMessageProps = {
   message: string;
@@ -80,12 +80,12 @@ const WarningMessage = (props: WarningMessageProps): ReactElement => {
               {showCloseIcon && (
                 <Grid item>
                   <IconButton
+                    icon={<CloseIcon />}
+                    tooltipTitle="Close"
                     color="inherit"
                     size="small"
                     onClick={() => (onClose ? onClose() : void 0)}
-                  >
-                    <CloseIcon />
-                  </IconButton>
+                  />
                 </Grid>
               )}
             </Grid>

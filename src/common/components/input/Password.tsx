@@ -1,6 +1,5 @@
 import {
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
@@ -8,6 +7,7 @@ import {
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import React, { ChangeEvent, ReactElement, useState } from "react";
+import IconButton from "./buttons/IconButton";
 
 type PasswordProps = {
   label?: string;
@@ -36,12 +36,12 @@ const Password = (props: PasswordProps): ReactElement => {
         endAdornment={
           <InputAdornment position="end">
             <IconButton
+              icon={showPassword ? <Visibility /> : <VisibilityOff />}
+              tooltipTitle={""}
               aria-label="toggle password visibility"
               onClick={() => setShowPassword(!showPassword)}
               edge="end"
-            >
-              {showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
+            />
           </InputAdornment>
         }
       />

@@ -1,5 +1,4 @@
 import {
-  Button,
   createStyles,
   Grid,
   makeStyles,
@@ -23,6 +22,7 @@ import Address from "./Address";
 import BoltzFeeInfo from "./BoltzFeeInfo";
 import { withdraw } from "./walletUtil";
 import WarningMessage from "../../common/components/data-display/WarningMessage";
+import Button from "../../common/components/input/buttons/Button";
 
 type WithdrawAddressProps = {
   currency: string;
@@ -145,12 +145,11 @@ const WithdrawAddress = (props: WithdrawAddressProps): ReactElement => {
           >
             <Grid item>
               <Button
+                text="Change Amount"
                 startIcon={<ArrowBackIcon />}
                 variant="outlined"
                 onClick={() => changeAmount(address)}
-              >
-                Change Amount
-              </Button>
+              />
             </Grid>
             <Grid item>
               <ButtonWithLoading

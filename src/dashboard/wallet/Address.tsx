@@ -2,15 +2,14 @@ import {
   createStyles,
   Grid,
   Icon,
-  IconButton,
   InputAdornment,
   makeStyles,
   OutlinedInput,
   Theme,
-  Tooltip,
 } from "@material-ui/core";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
+import IconButton from "../../common/components/input/buttons/IconButton";
 import { copyToClipboard } from "../../common/utils/appUtil";
 
 type AddressProps = {
@@ -70,17 +69,17 @@ const Address = (props: AddressProps): ReactElement => {
         endAdornment={
           <InputAdornment position="end">
             <div>
-              <Tooltip title="Copy Address">
-                <IconButton onClick={() => copyToClipboard(address)}>
-                  {<FileCopyOutlinedIcon fontSize="small" />}
-                </IconButton>
-              </Tooltip>
+              <IconButton
+                icon={<FileCopyOutlinedIcon fontSize="small" />}
+                tooltipTitle="Copy Addres"
+                onClick={() => copyToClipboard(address)}
+              />
               {showQr !== false && (
-                <Tooltip title="Show QR">
-                  <IconButton onClick={openQr}>
-                    {<Icon fontSize="small">qr_code</Icon>}
-                  </IconButton>
-                </Tooltip>
+                <IconButton
+                  icon={<Icon fontSize="small">qr_code</Icon>}
+                  tooltipTitle="Show QR"
+                  onClick={openQr}
+                />
               )}
             </div>
           </InputAdornment>

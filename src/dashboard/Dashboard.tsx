@@ -1,4 +1,4 @@
-import { Button, Grid, Tooltip, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
@@ -34,6 +34,7 @@ import Overview from "./overview/Overview";
 import Trade from "./trade/Trade";
 import Tradehistory from "./tradehistory/Tradehistory";
 import Wallets from "./wallet/Wallets";
+import Button from "../common/components/input/buttons/Button";
 /* import SettingsIcon from "@material-ui/icons/Settings";
 import Settings from "../settings/Settings"; */
 
@@ -197,18 +198,17 @@ const Dashboard = (): ReactElement => {
           </Grid> */}
           {isElectron() && (
             <Grid item container justify="center">
-              <Tooltip title="Disconnect from opendex-docker" placement="top">
-                <Button
-                  size="small"
-                  startIcon={<CachedIcon />}
-                  variant="outlined"
-                  className={classes.drawerButton}
-                  fullWidth
-                  onClick={disconnect}
-                >
-                  Disconnect
-                </Button>
-              </Tooltip>
+              <Button
+                text="Disconnect"
+                tooltipTitle="Disconnect from opendex-docker"
+                tooltipPlacement="top"
+                size="small"
+                startIcon={<CachedIcon />}
+                variant="outlined"
+                className={classes.drawerButton}
+                fullWidth
+                onClick={disconnect}
+              />
             </Grid>
           )}
         </Grid>

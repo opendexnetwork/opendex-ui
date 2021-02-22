@@ -2,15 +2,14 @@ import {
   createStyles,
   Divider,
   Grid,
-  IconButton,
   makeStyles,
   Theme,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
 import Code from "../../common/components/data-display/text/Code";
+import IconButton from "../../common/components/input/buttons/IconButton";
 import { copyToClipboard } from "../../common/utils/appUtil";
 
 type CheckBoltzTransactionStatusProps = {
@@ -57,11 +56,11 @@ const CheckBoltzTransactionStatus = (
           <Code text={command} backgroundColor="default" />
         </Grid>
         <Grid item className={classes.iconContainer}>
-          <Tooltip title="Copy">
-            <IconButton onClick={() => copyToClipboard(command)}>
-              <FileCopyOutlinedIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          <IconButton
+            icon={<FileCopyOutlinedIcon fontSize="small" />}
+            tooltipTitle="Copy to clipboard"
+            onClick={() => copyToClipboard(command)}
+          />
         </Grid>
       </Grid>
     </Grid>

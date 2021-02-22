@@ -7,10 +7,10 @@ import {
   makeStyles,
   Theme,
 } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import React, { ReactElement } from "react";
+import IconButton from "../../common/components/input/buttons/IconButton";
 import { Status } from "../../models/Status";
 import { drawerWidth } from "../Dashboard";
 import ServiceDetailsContent from "./ServiceDetailsContent";
@@ -39,7 +39,6 @@ const ServiceDetails = (props: ServiceDetailsProps): ReactElement => {
   const classes = useStyles();
 
   return (
-    /* Dialog */
     <Dialog
       open
       onClose={handleClose}
@@ -55,10 +54,11 @@ const ServiceDetails = (props: ServiceDetailsProps): ReactElement => {
           wrap="nowrap"
         >
           <Grid item container xs lg>
-            {/* IconButton */}
-            <IconButton onClick={handleClose}>
-              <CloseIcon />
-            </IconButton>
+            <IconButton
+              onClick={handleClose}
+              icon={<CloseIcon />}
+              tooltipTitle="Close"
+            />
           </Grid>
           <Grid item container justify="center" xs={10} lg={11}>
             <Typography variant="h4" component="h4">

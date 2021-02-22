@@ -1,5 +1,4 @@
 import {
-  Button,
   createStyles,
   Grid,
   makeStyles,
@@ -7,6 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { ReactElement } from "react";
+import Button from "../../common/components/input/buttons/Button";
 import { satsToCoinsStr } from "../../common/utils/currencyUtil";
 import CheckBoltzTransactionStatus from "./CheckBoltzTransactionStatus";
 
@@ -48,14 +48,7 @@ const WithdrawalComplete = (props: WithdrawalCompleteProps): ReactElement => {
         justify="center"
         className={classes.row}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          disableElevation
-          onClick={onClose}
-        >
-          Close
-        </Button>
+        <Button text="Close" color="primary" onClick={onClose} />
       </Grid>
     </>
   );

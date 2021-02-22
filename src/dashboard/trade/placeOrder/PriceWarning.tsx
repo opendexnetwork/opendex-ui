@@ -1,5 +1,4 @@
 import {
-  Button,
   createStyles,
   Dialog,
   DialogActions,
@@ -11,6 +10,7 @@ import {
 } from "@material-ui/core";
 import WarningIcon from "@material-ui/icons/Warning";
 import React, { ReactElement } from "react";
+import Button from "../../../common/components/input/buttons/Button";
 import { darkTheme } from "../../../themes";
 
 type PriceWarningProps = {
@@ -65,17 +65,13 @@ const PriceWarning = (props: PriceWarningProps): ReactElement => {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button disableElevation variant="outlined" onClick={handleClose}>
-            Cancel
-          </Button>
+          <Button text="Cancel" variant="outlined" onClick={handleClose} />
           <Button
-            disableElevation
+            text="Place Order"
             variant="contained"
             color="primary"
             onClick={onConfirmed}
-          >
-            Place Order
-          </Button>
+          />
         </DialogActions>
       </Dialog>
     </ThemeProvider>

@@ -4,12 +4,10 @@ import {
   createStyles,
   Fade,
   Grid,
-  IconButton,
   makeStyles,
   Paper,
   Popper,
   Theme,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
@@ -18,6 +16,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import SortIcon from "@material-ui/icons/Sort";
 import React, { ReactElement, useState } from "react";
 import { SortingOrder } from "../../../utils/SortingUtil";
+import IconButton from "../../input/buttons/IconButton";
 
 export type SortingOptionsProps<T> = {
   sortOpts: SortOption<T>[];
@@ -102,11 +101,12 @@ function SortingOptions<T>(props: SortingOptionsProps<T>): ReactElement {
     >
       <ClickAwayListener onClickAway={closeSortOptions}>
         <div>
-          <Tooltip title="Sort" placement="left">
-            <IconButton onClick={handleSortIconClick}>
-              {!sortOptsOpen ? <SortIcon /> : <CloseIcon />}
-            </IconButton>
-          </Tooltip>
+          <IconButton
+            tooltipTitle="Sort"
+            tooltipPlacement="left"
+            onClick={handleSortIconClick}
+            icon={sortOptsOpen ? <CloseIcon /> : <SortIcon />}
+          />
           <Popper
             open={sortOptsOpen}
             anchorEl={sortOptsAnchorEl}

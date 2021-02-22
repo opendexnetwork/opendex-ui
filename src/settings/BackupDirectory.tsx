@@ -1,9 +1,7 @@
 import {
-  Button,
   createStyles,
   FormControl,
   Grid,
-  IconButton,
   InputAdornment,
   makeStyles,
   OutlinedInput,
@@ -22,6 +20,8 @@ import { ConnectionType } from "../enums";
 import api from "../api";
 import { getErrorMsg } from "../common/utils/errorUtil";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
+import Button from "../common/components/input/buttons/Button";
+import IconButton from "../common/components/input/buttons/IconButton";
 
 type BackupDirectoryProps = {
   onCompleteSubject?: Subject<boolean>;
@@ -104,13 +104,11 @@ const BackupDirectory = inject(
             {isLocalConnection ? (
               !backupDirectory ? (
                 <Button
-                  disableElevation
+                  text="Choose"
                   color="secondary"
                   variant="outlined"
                   onClick={() => sendMessageToParent("chooseDirectory")}
-                >
-                  Choose
-                </Button>
+                />
               ) : (
                 <Grid
                   item
@@ -124,9 +122,11 @@ const BackupDirectory = inject(
                     <Typography>{backupDirectory}</Typography>
                   </Grid>
                   <Grid item>
-                    <IconButton onClick={() => setBackupDirectory("")}>
-                      <CancelIcon />
-                    </IconButton>
+                    <IconButton
+                      icon={<CancelIcon />}
+                      tooltipTitle="Cancel"
+                      onClick={() => setBackupDirectory("")}
+                    />
                   </Grid>
                 </Grid>
               )
@@ -146,11 +146,11 @@ const BackupDirectory = inject(
                     !!backupDirectory && (
                       <InputAdornment position="end">
                         <IconButton
+                          icon={<CancelIcon fontSize="small" />}
+                          tooltipTitle="Cancel"
                           edge="end"
                           onClick={() => setBackupDirectory("")}
-                        >
-                          <CancelIcon fontSize="small" />
-                        </IconButton>
+                        />
                       </InputAdornment>
                     )
                   }

@@ -1,5 +1,6 @@
-import { Button, Grid, Tooltip } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React, { ReactElement } from "react";
+import Button from "../../common/components/input/buttons/Button";
 
 type WalletTransactionButtonProps = {
   text: string;
@@ -14,19 +15,13 @@ const WalletTransactionButton = (
 
   return (
     <Grid item>
-      <Tooltip title={disabledHint}>
-        <span>
-          <Button
-            disabled={!!disabledHint}
-            variant="contained"
-            color="primary"
-            disableElevation
-            onClick={onClick}
-          >
-            {text}
-          </Button>
-        </span>
-      </Tooltip>
+      <Button
+        text={text}
+        tooltipTitle={disabledHint}
+        disabled={!!disabledHint}
+        color="primary"
+        onClick={onClick}
+      />
     </Grid>
   );
 };
