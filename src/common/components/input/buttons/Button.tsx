@@ -7,8 +7,8 @@ type ButtonProps = Omit<ButtonBaseProps, "variant"> & {
 
 const Button = (props: ButtonProps): ReactElement => {
   const buttonBaseProps: ButtonBaseProps = {
-    ...props,
     variant: props.variant || "contained",
+    ...props,
   };
   return ButtonBase(buttonBaseProps);
 };

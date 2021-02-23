@@ -5,8 +5,8 @@ type TextButtonProps = Omit<ButtonBaseProps, "variant">;
 
 const TextButton = (props: TextButtonProps): ReactElement => {
   const buttonBaseProps: ButtonBaseProps = {
-    ...props,
     variant: "text",
+    ...props,
   };
   return ButtonBase(buttonBaseProps);
 };

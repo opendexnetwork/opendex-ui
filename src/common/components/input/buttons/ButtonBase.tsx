@@ -13,12 +13,12 @@ export type ButtonBaseProps = ButtonProps & {
 };
 
 const ButtonBase = (props: ButtonBaseProps): ReactElement => {
-  const { text, tooltipTitle, tooltipPlacement } = props;
+  const { text, tooltipTitle, tooltipPlacement, ...buttonProps } = props;
 
   const materialButtonProps: ButtonProps = {
-    ...props,
     disableElevation: true,
     children: text,
+    ...buttonProps,
   };
 
   return (
@@ -28,7 +28,9 @@ const ButtonBase = (props: ButtonBaseProps): ReactElement => {
           title={getFormattedTooltipTitle(tooltipTitle)}
           placement={tooltipPlacement}
         >
-          <MaterialButton {...materialButtonProps} />
+          <span>
+            <MaterialButton {...materialButtonProps} />
+          </span>
         </Tooltip>
       ) : (
         <MaterialButton {...materialButtonProps} />
