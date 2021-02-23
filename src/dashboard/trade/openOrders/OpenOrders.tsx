@@ -19,7 +19,7 @@ import { OrderOwner } from "../../../enums";
 import { Order } from "../../../models/Order";
 import { Trade } from "../../../models/Trade";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
-import SectionTitle from "../SectionTitle";
+import SectionTitle from "../../../common/components/data-display/text/SectionTitle";
 import CancelOrder from "./CancelOrder";
 
 type OpenOrdersProps = {

@@ -1,4 +1,3 @@
-import { FormControl, FormHelperText } from "@material-ui/core";
 import React, { ReactElement, useState } from "react";
 import api from "../../../api";
 import ButtonWithLoading from "../../../common/components/input/buttons/ButtonWithLoading";
@@ -21,42 +20,40 @@ const CancelOrder = (props: CancelOrderProps): ReactElement => {
   };
 
   return (
-    <FormControl fullWidth>
-      <ButtonWithLoading
-        text="Cancel"
-        disabled={isPending(row)}
-        loading={isPending(row)}
-        size="small"
-        onClick={() => {
-          setLoading(true);
-          setCancelledOrders((oldValue) =>
-            oldValue.set(row.orderId, {
-              pending: true,
-              error: "",
-            })
-          );
-          api
-            .removeOrder$({
-              orderId: row.orderId,
-            })
-            .subscribe({
-              next: () => {},
-              error: (err) => {
-                setLoading(false);
-                setCancelledOrders((oldValue) =>
-                  oldValue.set(row.orderId, {
-                    pending: false,
-                    error: getErrorMsg(err),
-                  })
-                );
-              },
-            });
-        }}
-      />
-      <FormHelperText error>
-        {cancelledOrders.get(row.orderId)?.error}
-      </FormHelperText>
-    </FormControl>
+    <ButtonWithLoading
+      fullWidth
+      text="Cancel"
+      disabled={isPending(row)}
+      loading={isPending(row)}
+      size="small"
+      onClick={() => {
+        setLoading(true);
+        setCancelledOrders((oldValue) =>
+          oldValue.set(row.orderId, {
+            pending: true,
+            error: "",
+          })
+        );
+        api
+          .removeOrder$({
+            orderId: row.orderId,
+          })
+          .subscribe({
+            next: () => {},
+            error: (err) => {
+              setLoading(false);
+              setCancelledOrders((oldValue) =>
+                oldValue.set(row.orderId, {
+                  pending: false,
+                  error: getErrorMsg(err),
+                })
+              );
+            },
+          });
+      }}
+      error={true}
+      helperText={cancelledOrders.get(row.orderId)?.error}
+    />
   );
 };
 

@@ -1,4 +1,7 @@
-import { FormControl, NativeSelect } from "@material-ui/core";
+import {
+  FormControl,
+  NativeSelect as MaterialNativeSelect,
+} from "@material-ui/core";
 import React, { ReactElement } from "react";
 
 type SelectProps = {
@@ -8,10 +11,10 @@ type SelectProps = {
   onChange: (value: string) => void;
 };
 
-const Select = (props: SelectProps): ReactElement => {
+const NativeSelect = (props: SelectProps): ReactElement => {
   return (
     <FormControl>
-      <NativeSelect
+      <MaterialNativeSelect
         value={props.value}
         onChange={(event) => props.onChange(event.target.value)}
         name={props.name}
@@ -21,9 +24,9 @@ const Select = (props: SelectProps): ReactElement => {
             {opt}
           </option>
         ))}
-      </NativeSelect>
+      </MaterialNativeSelect>
     </FormControl>
   );
 };
 
-export default Select;
+export default NativeSelect;

@@ -4,12 +4,12 @@ import {
   Icon,
   InputAdornment,
   makeStyles,
-  OutlinedInput,
   Theme,
 } from "@material-ui/core";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
 import IconButton from "../../common/components/input/buttons/IconButton";
+import TextField from "../../common/components/input/text/TextField";
 import { copyToClipboard } from "../../common/utils/appUtil";
 
 type AddressProps = {
@@ -57,11 +57,10 @@ const Address = (props: AddressProps): ReactElement => {
       direction="column"
       className={classes.addressContainer}
     >
-      <OutlinedInput
+      <TextField
         fullWidth
         className={addressFieldClass}
-        color="primary"
-        readOnly={readOnly}
+        disabled={readOnly}
         value={address}
         onChange={(event) =>
           setAddress ? setAddress(event.target.value) : void 0

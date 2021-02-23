@@ -1,4 +1,10 @@
-import { CircularProgress, createStyles, makeStyles } from "@material-ui/core";
+import {
+  CircularProgress,
+  createStyles,
+  FormControl,
+  FormHelperText,
+  makeStyles,
+} from "@material-ui/core";
 import React, { ReactElement } from "react";
 import Button from "./Button";
 
@@ -11,6 +17,8 @@ type ButtonWithLoadingProps = {
   fullWidth?: boolean;
   size?: "small" | "medium" | "large";
   color?: "primary" | "secondary";
+  error?: boolean;
+  helperText?: string;
 };
 
 const useStyles = makeStyles(() =>
@@ -39,23 +47,32 @@ const ButtonWithLoading = (props: ButtonWithLoadingProps): ReactElement => {
     fullWidth,
     size,
     color,
+    error,
+    helperText,
   } = props;
 
   return (
-    <div className={classes.buttonWrapper}>
-      <Button
-        text={text}
-        type={submitButton ? "submit" : "button"}
-        color={color || "primary"}
-        onClick={onClick}
-        disabled={disabled}
-        fullWidth={fullWidth}
-        size={size}
-      />
-      {loading && (
-        <CircularProgress size={24} className={classes.buttonProgress} />
-      )}
-    </div>
+    <FormControl fullWidth={fullWidth}>
+      <div className={classes.buttonWrapper}>
+        <Button
+          text={text}
+          type={submitButton ? "submit" : "button"}
+          color={color || "primary"}
+          onClick={onClick}
+          disabled={disabled}
+          fullWidth={fullWidth}
+          size={size}
+        />
+        {loading && (
+          <CircularProgress
+            size={24}
+            className={classes.buttonProgress}
+            color={color || "primary"}
+          />
+        )}
+      </div>
+      <FormHelperText error={error}>{helperText}</FormHelperText>
+    </FormControl>
   );
 };
 
