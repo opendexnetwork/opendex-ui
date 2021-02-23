@@ -15,16 +15,9 @@ import { Path } from "./router/Path";
 import { darkTheme } from "./themes";
 import { useElectronStore } from "./stores/electronStore";
 import { Provider } from "mobx-react";
-import {
-  isElectron,
-  logError,
-  sendMessageToParent,
-} from "./common/utils/appUtil";
+import { isElectron, sendMessageToParent } from "./common/utils/appUtil";
 import { useBackupStore } from "./stores/backupStore";
-import api from "./api";
-import { getErrorMsg } from "./common/utils/errorUtil";
-import { timer } from "rxjs";
-import { exhaustMap, retry } from "rxjs/operators";
+import { useServiceStore } from "./stores/serviceStore";
 
 const GlobalCss = withStyles((theme: Theme) => {
   const background = theme.palette.background;
@@ -56,6 +49,7 @@ const GlobalCss = withStyles((theme: Theme) => {
 
 const electronStore = useElectronStore({});
 const backupStore = useBackupStore({ backupInfoLoaded: false });
+const serviceStore = useServiceStore({});
 
 function App(): ReactElement {
   useEffect(() => {
@@ -74,25 +68,15 @@ function App(): ReactElement {
     return () => window.removeEventListener("message", messageListenerHandler);
   }, []);
 
-  useEffect(() => {
-    const sub = timer(0, 60000)
-      .pipe(
-        exhaustMap(() => api.getBackupInfo$()),
-        retry(3)
-      )
-      .subscribe({
-        next: (resp) => backupStore.setInfo(resp),
-        error: (err) =>
-          logError(`Failed to retrieve backup info: ${getErrorMsg(err)}`),
-      });
-    return () => sub.unsubscribe();
-  }, []);
-
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
       <GlobalCss />
-      <Provider electronStore={electronStore} backupStore={backupStore}>
+      <Provider
+        electronStore={electronStore}
+        backupStore={backupStore}
+        serviceStore={serviceStore}
+      >
         <Router>
           <Switch>
             <Route path={Path.CONNECTION_FAILED}>

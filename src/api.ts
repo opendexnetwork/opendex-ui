@@ -52,9 +52,11 @@ const fetchJsonResponse = <T>(
   }
   return from(fetch(queryUrl.toString(), { method, body })).pipe(
     mergeMap((resp: Response) =>
-      from(resp.json()).pipe(
-        mergeMap((body) => (resp.ok ? of(body) : throwError(body)))
-      )
+      resp.status === 204
+        ? of({})
+        : from(resp.json()).pipe(
+            mergeMap((body) => (resp.ok ? of(body) : throwError(body)))
+          )
     ),
     catchError((err) => logAndThrow(url, err))
   );

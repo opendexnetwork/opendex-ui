@@ -18,20 +18,16 @@ import {
   useLocation,
   useRouteMatch,
 } from "react-router-dom";
-import { timer } from "rxjs";
-import { exhaustMap } from "rxjs/operators";
-import api from "../api";
-import ErrorMessage from "../common/components/data-display/ErrorMessage";
-import { getErrorMsg } from "../common/utils/errorUtil";
 import Loader from "../common/components/data-display/loader/Loader";
-import { isOpendexdLocked, isOpendexdReady } from "../common/utils/serviceUtil";
-import ViewDisabled from "../dashboard/ViewDisabled";
-import { Status } from "../models/Status";
 import { Path } from "../router/Path";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 import BackupDirectory from "./BackupDirectory";
 import ChangePassword from "./ChangePassword";
 import Setup from "./Setup";
+import api from "../api";
+import { retry } from "rxjs/operators";
+import { logError } from "../common/utils/appUtil";
+import { getErrorMsg } from "../common/utils/errorUtil";
 
 type SettingsProps = {
   backupStore?: BackupStore;
@@ -67,88 +63,60 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+const createMenuItems = (backupStore: BackupStore): MenuItem[] => {
+  const initialSetupFinished =
+    backupStore!.backupInfoLoaded &&
+    !backupStore!.defaultPassword &&
+    backupStore!.mnemonicShown &&
+    !backupStore!.defaultBackupDirectory;
+
+  return [
+    {
+      text: "Initial Setup",
+      path: Path.INITIAL_SETUP,
+      component: <Setup />,
+      isDisabled: !backupStore!.backupInfoLoaded || initialSetupFinished,
+    },
+    {
+      text: "Backup",
+      path: Path.BACKUP,
+      component: <BackupDirectory />,
+      isDisabled: !initialSetupFinished,
+    },
+    {
+      text: "Change Password",
+      path: Path.CHANGE_PASSWORD,
+      component: <ChangePassword />,
+      isDisabled: !initialSetupFinished,
+    },
+  ];
+};
+
 const Settings = inject(BACKUP_STORE)(
   observer(
     (props?: SettingsProps): ReactElement => {
       const { backupStore } = props!;
-      const [opendexdStatus, setOpendexdStatus] = useState<Status | undefined>(
-        undefined
-      );
-      const [opendexdStatusError, setOpendexdStatusError] = useState("");
       const classes = useStyles();
       const { path, url } = useRouteMatch();
       const { pathname } = useLocation();
+      const [loadingInfo, setLoadingInfo] = useState(true);
+      const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
       useEffect(() => {
-        const sub = timer(0, 5000)
-          .pipe(exhaustMap(() => api.statusByService$("opendexd")))
+        const sub = api
+          .getBackupInfo$()
+          .pipe(retry(3))
           .subscribe({
-            next: (resp) => setOpendexdStatus(resp),
-            error: (err) => setOpendexdStatusError(getErrorMsg(err)),
+            next: (resp) => {
+              backupStore!.setInfo(resp);
+              setMenuItems(createMenuItems(backupStore!));
+              setLoadingInfo(false);
+            },
+            error: (err) =>
+              logError(`Failed to retrieve backup info: ${getErrorMsg(err)}`),
           });
-
         return () => sub.unsubscribe();
-      }, []);
-
-      /**
-       * In case a component needs opendexd to be ready and unlocked,
-       * information from opendexd status is displayed when those conditions are not met.
-       *
-       * @param comp
-       * a component to display when opendexd is ready and unlocked
-       */
-      const showOpendexdDependentComponent = (
-        comp: ReactElement
-      ): ReactElement => {
-        if (opendexdStatus) {
-          return !isOpendexdLocked(opendexdStatus) &&
-            isOpendexdReady(opendexdStatus) ? (
-            comp
-          ) : (
-            <ViewDisabled
-              opendexdLocked={isOpendexdLocked(opendexdStatus)}
-              opendexdStatus={opendexdStatus.status}
-            />
-          );
-        }
-        return opendexdStatusError ? (
-          <ErrorMessage mainMessage={"Error"} details={opendexdStatusError} />
-        ) : (
-          <Loader />
-        );
-      };
-
-      const initialSetupFinished =
-        backupStore!.backupInfoLoaded &&
-        !backupStore!.defaultPassword &&
-        backupStore!.mnemonicShown &&
-        !backupStore!.defaultBackupDirectory;
-
-      const menuItems: MenuItem[] = [
-        {
-          text: "Initial Setup",
-          path: Path.INITIAL_SETUP,
-          component:
-            !backupStore!.defaultPassword && backupStore!.mnemonicShown ? (
-              <Setup />
-            ) : (
-              showOpendexdDependentComponent(<Setup />)
-            ),
-          isDisabled: !backupStore!.backupInfoLoaded || initialSetupFinished,
-        },
-        {
-          text: "Backup",
-          path: Path.BACKUP,
-          component: <BackupDirectory />,
-          isDisabled: !initialSetupFinished,
-        },
-        {
-          text: "Change Password",
-          path: Path.CHANGE_PASSWORD,
-          component: showOpendexdDependentComponent(<ChangePassword />),
-          isDisabled: !initialSetupFinished,
-        },
-      ];
+      }, [backupStore]);
 
       const firstEnabledMenuItem = menuItems.find((item) => !item.isDisabled);
 
@@ -159,69 +127,77 @@ const Settings = inject(BACKUP_STORE)(
           justify="center"
           className={classes.wrapper}
         >
-          <Grid item container className={classes.content}>
-            <Grid
-              item
-              container
-              direction="column"
-              justify="center"
-              alignItems="center"
-              xs={4}
-              lg={3}
-            >
-              <List className={classes.menu}>
-                {menuItems
-                  .filter((item) => !item.isDisabled)
-                  .map((item) => {
-                    const navigateTo = `${url}${item.path}`;
-                    return (
-                      <ListItem
-                        key={item.text}
-                        button
-                        component={NavLink}
-                        to={navigateTo}
-                        selected={navigateTo === pathname}
-                      >
-                        <ListItemText
-                          primary={item.text}
-                          primaryTypographyProps={{ variant: "overline" }}
-                        />
-                      </ListItem>
-                    );
-                  })}
-              </List>
+          {loadingInfo ? (
+            <Loader />
+          ) : (
+            <Grid item container className={classes.content}>
+              <Grid
+                item
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                xs={4}
+                lg={3}
+              >
+                <List className={classes.menu}>
+                  {menuItems
+                    .filter((item) => !item.isDisabled)
+                    .map((item) => {
+                      const navigateTo = `${url}${item.path}`;
+                      return (
+                        <ListItem
+                          key={item.text}
+                          button
+                          component={NavLink}
+                          to={navigateTo}
+                          selected={navigateTo === pathname}
+                        >
+                          <ListItemText
+                            primary={item.text}
+                            primaryTypographyProps={{ variant: "overline" }}
+                          />
+                        </ListItem>
+                      );
+                    })}
+                </List>
+              </Grid>
+              <Divider
+                orientation="vertical"
+                flexItem
+                className={classes.divider}
+              />
+              <Grid
+                item
+                container
+                alignItems="center"
+                justify="space-between"
+                xs={7}
+                lg={8}
+              >
+                <Switch>
+                  {menuItems
+                    .filter((item) => !item.isDisabled)
+                    .map((item) => {
+                      return (
+                        <Route
+                          exact
+                          path={`${path}${item.path}`}
+                          key={item.text}
+                        >
+                          {item.component}
+                        </Route>
+                      );
+                    })}
+                  {!!firstEnabledMenuItem && (
+                    <Route exact path={path}>
+                      <Redirect to={`${path}${firstEnabledMenuItem?.path}`} />
+                    </Route>
+                  )}
+                </Switch>
+              </Grid>
             </Grid>
-            <Divider
-              orientation="vertical"
-              flexItem
-              className={classes.divider}
-            />
-            <Grid
-              item
-              container
-              alignItems="center"
-              justify="space-between"
-              xs={7}
-              lg={8}
-            >
-              <Switch>
-                {menuItems
-                  .filter((item) => !item.isDisabled)
-                  .map((item) => {
-                    return (
-                      <Route exact path={`${path}${item.path}`} key={item.text}>
-                        {item.component}
-                      </Route>
-                    );
-                  })}
-                {!!firstEnabledMenuItem && (
-                  <Route exact path={path}>
-                    <Redirect to={`${path}${firstEnabledMenuItem?.path}`} />
-                  </Route>
-                )}
-              </Switch>
-            </Grid>
-          </Grid>
+          )}
         </Grid>
       );
     }

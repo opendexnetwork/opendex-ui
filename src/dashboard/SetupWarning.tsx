@@ -3,12 +3,14 @@ import { inject, observer } from "mobx-react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { interval } from "rxjs";
-import { catchError, exhaustMap, filter, take } from "rxjs/operators";
+import { catchError, exhaustMap, filter, retry, take } from "rxjs/operators";
 import api from "../api";
 import WarningMessage from "../common/components/data-display/WarningMessage";
 import Button from "../common/components/input/buttons/Button";
 import { Path } from "../router/Path";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
+import { logError } from "../common/utils/appUtil";
+import { getErrorMsg } from "../common/utils/errorUtil";
 
 type SetupWarningProps = {
   backupStore?: BackupStore;
@@ -18,7 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapper: {
       width: "100%",
-      marginBottom: theme.spacing(2),
+    },
+    wrapperMargin: {
+      marginBottom: theme.spacing(1),
     },
   })
 );
@@ -32,6 +36,18 @@ const SetupWarning = inject(BACKUP_STORE)(
       const [visible, setVisible] = useState(false);
       const [closed, setClosed] = useState(false);
       const [closeBtnVisible, setCloseBtnVisible] = useState(false);
+
+      useEffect(() => {
+        const sub = api
+          .getBackupInfo$()
+          .pipe(retry(3))
+          .subscribe({
+            next: (resp) => backupStore!.setInfo(resp),
+            error: (err) =>
+              logError(`Failed to retrieve backup info: ${getErrorMsg(err)}`),
+          });
+        return () => sub.unsubscribe();
+      }, [backupStore]);
 
       useEffect(() => {
         const sub = interval(1000).subscribe(() =>
@@ -68,7 +84,14 @@ const SetupWarning = inject(BACKUP_STORE)(
       }, [visible]);
 
       return (
-        <Collapse in={visible} className={classes.wrapper}>
+        <Collapse
+          in={visible}
+          className={
+            visible
+              ? `${classes.wrapper} ${classes.wrapperMargin}`
+              : classes.wrapper
+          }
+        >
           <WarningMessage
             message="Secure your funds. Setup password, store mnemonic, and save backup data."
             alignToStart

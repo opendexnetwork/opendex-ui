@@ -1,20 +1,23 @@
 import { createStyles, WithStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
+import { inject, observer } from "mobx-react";
 import React, { ReactElement } from "react";
-import { RouteComponentProps, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { timer } from "rxjs";
 import { exhaustMap, shareReplay } from "rxjs/operators";
 import api from "../../api";
 import PageLoader from "../../common/components/data-display/loader/PageLoader";
 import { GetbalanceResponse } from "../../models/GetbalanceResponse";
 import { TradinglimitsResponse } from "../../models/TradinglimitsResponse";
-import DashboardContent, { DashboardContentState } from "../DashboardContent";
+import DashboardContent, {
+  DashboardContentProps,
+  DashboardContentState,
+} from "../DashboardContent";
 import ViewDisabled from "../ViewDisabled";
 import WalletItem from "./WalletItem";
 
-type PropsType = RouteComponentProps<{ param1: string }> &
-  WithStyles<typeof styles>;
+type PropsType = DashboardContentProps & WithStyles<typeof styles>;
 
 type StateType = DashboardContentState & {
   balances: GetbalanceResponse | undefined;
@@ -29,6 +32,10 @@ const styles = () => {
   });
 };
 
+@inject((stores) => ({
+  serviceStore: (stores as any).serviceStore,
+}))
+@observer
 class Wallets extends DashboardContent<PropsType, StateType> {
   getInfo$ = timer(0, 60000).pipe(
     exhaustMap(() => api.getinfo$()),
