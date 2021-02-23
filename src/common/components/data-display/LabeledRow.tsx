@@ -1,7 +1,8 @@
-import { Divider, Grid, IconButton, makeStyles } from "@material-ui/core";
+import { Divider, Grid, makeStyles } from "@material-ui/core";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
 import { copyToClipboard } from "../../utils/appUtil";
+import IconButton from "../input/buttons/IconButton";
 
 type LabeledRowProps = {
   label: string;
@@ -36,10 +37,11 @@ const LabeledRow = (props: LabeledRowProps): ReactElement => {
       {reserveSpaceForCopyIcon && (
         <Grid item xs={2} className={classes.cell}>
           {showCopyIcon && (
-            /* IconButton */
-            <IconButton onClick={() => copyToClipboard(value)}>
-              <FileCopyOutlinedIcon fontSize="small" />
-            </IconButton>
+            <IconButton
+              icon={<FileCopyOutlinedIcon fontSize="small" />}
+              tooltipTitle="Copy to clipboard"
+              onClick={() => copyToClipboard(value)}
+            />
           )}
         </Grid>
       )}

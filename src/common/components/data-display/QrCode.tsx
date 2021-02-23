@@ -1,7 +1,6 @@
 import {
   createStyles,
   Grid,
-  IconButton,
   makeStyles,
   Paper,
   Theme,
@@ -10,6 +9,7 @@ import {
 import CloseIcon from "@material-ui/icons/Close";
 import QRCode from "qrcode.react";
 import React, { ReactElement } from "react";
+import IconButton from "../input/buttons/IconButton";
 
 type QrCodeProps = {
   value: string;
@@ -39,9 +39,11 @@ const QrCode = (props: QrCodeProps): ReactElement => {
   return (
     <Paper className={classes.container}>
       <Grid item container justify="flex-end">
-        <IconButton onClick={handleClose}>
-          <CloseIcon />
-        </IconButton>
+        <IconButton
+          icon={<CloseIcon />}
+          tooltipTitle="Close"
+          onClick={handleClose}
+        />
       </Grid>
       <Grid item container justify="center" alignItems="center">
         <Typography component="div" align="center">

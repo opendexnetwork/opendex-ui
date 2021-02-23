@@ -1,12 +1,7 @@
-import {
-  Button,
-  createStyles,
-  Grid,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
+import { createStyles, Grid, makeStyles, Theme } from "@material-ui/core";
 import GetAppOutlinedIcon from "@material-ui/icons/GetAppOutlined";
 import React, { ReactElement } from "react";
+import Button from "../../common/components/input/buttons/Button";
 import CSVLink from "../../common/components/navigation/csv/CsvLink";
 import { formatDateTimeForFilename } from "../../common/utils/dateUtil";
 import { TradeHeader, TradeRow } from "./Tradehistory";
@@ -46,9 +41,7 @@ const TradehistoryDownload = (
         filename={`tradehistory_${formatDateTimeForFilename(new Date())}.csv`}
         className={classes.downloadLink}
       >
-        <Button variant="contained" startIcon={<GetAppOutlinedIcon />}>
-          Download (.csv)
-        </Button>
+        <Button text="Download (.csv)" startIcon={<GetAppOutlinedIcon />} />
       </CSVLink>
     </Grid>
   );

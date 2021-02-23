@@ -1,10 +1,6 @@
-import {
-  Button,
-  CircularProgress,
-  createStyles,
-  makeStyles,
-} from "@material-ui/core";
+import { CircularProgress, createStyles, makeStyles } from "@material-ui/core";
 import React, { ReactElement } from "react";
+import Button from "./Button";
 
 type ButtonWithLoadingProps = {
   onClick: () => void;
@@ -48,17 +44,14 @@ const ButtonWithLoading = (props: ButtonWithLoadingProps): ReactElement => {
   return (
     <div className={classes.buttonWrapper}>
       <Button
+        text={text}
         type={submitButton ? "submit" : "button"}
         color={color || "primary"}
-        disableElevation
-        variant="contained"
         onClick={onClick}
         disabled={disabled}
         fullWidth={fullWidth}
         size={size}
-      >
-        {text}
-      </Button>
+      />
       {loading && (
         <CircularProgress size={24} className={classes.buttonProgress} />
       )}

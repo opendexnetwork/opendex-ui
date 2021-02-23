@@ -2,7 +2,6 @@ import {
   createStyles,
   Divider,
   Grid,
-  IconButton,
   makeStyles,
   Theme,
   Typography,
@@ -10,6 +9,7 @@ import {
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
 import { copyToClipboard } from "../../../utils/appUtil";
+import IconButton from "../../input/buttons/IconButton";
 import CenterEllipsis from "../CenterEllipsis";
 
 export type TableRow = {
@@ -106,6 +106,8 @@ function Table<T extends TableRow>(props: TableProps<T>): ReactElement {
                   <Grid container item wrap="nowrap" alignItems="center">
                     <CenterEllipsis text={row[column.key] + ""} />
                     <IconButton
+                      icon={<FileCopyOutlinedIcon fontSize="inherit" />}
+                      tooltipTitle="Copy to clipboard"
                       size="small"
                       className={classes.tableCellIcon}
                       onClick={() => {
@@ -116,9 +118,7 @@ function Table<T extends TableRow>(props: TableProps<T>): ReactElement {
                           );
                         }
                       }}
-                    >
-                      <FileCopyOutlinedIcon fontSize="inherit" />
-                    </IconButton>
+                    />
                   </Grid>
                 ) : (
                   <Typography

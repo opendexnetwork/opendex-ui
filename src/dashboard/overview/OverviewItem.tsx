@@ -1,12 +1,9 @@
 import {
-  Button,
   createStyles,
   Divider,
   Icon,
-  IconButton,
   makeStyles,
   Theme,
-  Tooltip,
 } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -18,6 +15,8 @@ import { Subject } from "rxjs";
 import api from "../../api";
 import Snackbar from "../../common/components/data-display/feedback/Snackbar";
 import LabeledRow from "../../common/components/data-display/LabeledRow";
+import IconButton from "../../common/components/input/buttons/IconButton";
+import TextButton from "../../common/components/input/buttons/TextButton";
 import { formatDateTimeForFilename } from "../../common/utils/dateUtil";
 import { isServiceReady } from "../../common/utils/serviceUtil";
 import { SERVICES_WITH_ADDITIONAL_INFO } from "../../constants";
@@ -110,12 +109,11 @@ const OverviewItem = (props: OverviewItemProps): ReactElement => {
         >
           <Grid container item>
             {isDetailsIconVisible(status) && (
-              /* IconButton */
-              <Tooltip title="details">
-                <IconButton size="small" onClick={() => setDetailsOpen(true)}>
-                  <Icon fontSize="small">open_in_full</Icon>
-                </IconButton>
-              </Tooltip>
+              <IconButton
+                onClick={() => setDetailsOpen(true)}
+                icon={<Icon fontSize="small">open_in_full</Icon>}
+                tooltipTitle="Details"
+              />
             )}
           </Grid>
           <Grid
@@ -132,20 +130,17 @@ const OverviewItem = (props: OverviewItemProps): ReactElement => {
           </Grid>
           <Grid container item justify="flex-end">
             {isDownloadLogsEnabled(status) && (
-              /* TextButton */
-              <Tooltip title="Download logs">
-                <Button
-                  size="small"
-                  startIcon={<GetAppOutlinedIcon fontSize="small" />}
-                  onClick={() =>
-                    downloadLogs(status.service, () =>
-                      errorMsgOpenSubject?.next(true)
-                    )
-                  }
-                >
-                  Logs
-                </Button>
-              </Tooltip>
+              <TextButton
+                text="Logs"
+                onClick={() =>
+                  downloadLogs(status.service, () =>
+                    errorMsgOpenSubject?.next(true)
+                  )
+                }
+                size="small"
+                startIcon={<GetAppOutlinedIcon fontSize="small" />}
+                tooltipTitle="Download logs"
+              />
             )}
           </Grid>
         </Grid>

@@ -1,5 +1,4 @@
 import {
-  Button,
   createStyles,
   Grid,
   makeStyles,
@@ -10,6 +9,7 @@ import React, { ReactElement, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Path } from "../../router/Path";
 import { isElectron, sendMessageToParent } from "../utils/appUtil";
+import Button from "./input/buttons/Button";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,9 +48,11 @@ const ConnectionFailed = (): ReactElement => {
         </Typography>
       </Grid>
       <Grid item className={classes.row}>
-        <Button variant="outlined" onClick={() => history.push(Path.DASHBOARD)}>
-          Try again
-        </Button>
+        <Button
+          text="Try Again"
+          variant="outlined"
+          onClick={() => history.push(Path.DASHBOARD)}
+        />
       </Grid>
     </Grid>
   );

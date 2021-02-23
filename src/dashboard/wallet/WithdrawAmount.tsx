@@ -1,5 +1,4 @@
 import {
-  Button,
   createStyles,
   FormControl,
   InputAdornment,
@@ -19,6 +18,7 @@ import {
 import NumberInput from "../../common/components/input/NumberInput";
 import { GetServiceInfoResponse } from "../../models/GetServiceInfoResponse";
 import { getMaxWithdrawAmount, isAmountBetweenLimits } from "./walletUtil";
+import Button from "../../common/components/input/buttons/Button";
 
 type WithdrawAmountProps = {
   currency: string;
@@ -102,10 +102,9 @@ const WithdrawAmount = (props: WithdrawAmountProps): ReactElement => {
         </Typography>
       )}
       <Button
+        text="Next"
         endIcon={<ArrowForwardIcon />}
         color="primary"
-        disableElevation
-        variant="contained"
         onClick={() => onNext(coinsToSats(amount))}
         disabled={
           isNaN(Number.parseFloat(amount)) ||
@@ -115,9 +114,7 @@ const WithdrawAmount = (props: WithdrawAmountProps): ReactElement => {
             serviceInfo.limits
           )
         }
-      >
-        Next
-      </Button>
+      />
     </>
   );
 };

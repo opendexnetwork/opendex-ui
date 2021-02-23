@@ -1,5 +1,4 @@
 import {
-  IconButton,
   makeStyles,
   Snackbar as MaterialSnackbar,
   SnackbarContent,
@@ -7,6 +6,7 @@ import {
 import CloseIcon from "@material-ui/icons/Close";
 import React, { ReactElement, useEffect, useState } from "react";
 import { Subject } from "rxjs";
+import IconButton from "../../input/buttons/IconButton";
 
 type SnackbarProps = {
   message: string;
@@ -47,9 +47,11 @@ const Snackbar = (props: SnackbarProps): ReactElement => {
         className={classes.snackbarContent}
         message={message}
         action={
-          <IconButton onClick={() => setOpen(false)}>
-            <CloseIcon />
-          </IconButton>
+          <IconButton
+            icon={<CloseIcon />}
+            tooltipTitle="Close"
+            onClick={() => setOpen(false)}
+          />
         }
       />
     </MaterialSnackbar>

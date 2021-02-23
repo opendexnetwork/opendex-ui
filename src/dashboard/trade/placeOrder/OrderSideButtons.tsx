@@ -1,6 +1,7 @@
-import { Button, ButtonGroup } from "@material-ui/core";
+import { ButtonGroup } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { ReactElement } from "react";
+import Button from "../../../common/components/input/buttons/Button";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
 
 type OrderSideButtonsProps = {
@@ -17,25 +18,23 @@ const OrderSideButtons = inject(TRADE_STORE)(
       return (
         <ButtonGroup fullWidth disableElevation className={className}>
           <Button
+            text="Buy"
             onClick={() => {
               tradeStore!.setIsBuyActive(true);
               onClick();
             }}
             color="primary"
             variant={tradeStore!.isBuyActive ? "contained" : "outlined"}
-          >
-            Buy
-          </Button>
+          />
           <Button
+            text="Sell"
             onClick={() => {
               tradeStore!.setIsBuyActive(false);
               onClick();
             }}
             color="secondary"
             variant={tradeStore!.isBuyActive ? "outlined" : "contained"}
-          >
-            Sell
-          </Button>
+          />
         </ButtonGroup>
       );
     }

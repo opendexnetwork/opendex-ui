@@ -1,5 +1,6 @@
-import { Button, createStyles, Grid, makeStyles } from "@material-ui/core";
+import { createStyles, Grid, makeStyles } from "@material-ui/core";
 import React, { ReactElement } from "react";
+import Button from "../common/components/input/buttons/Button";
 import ButtonWithLoading from "../common/components/input/buttons/ButtonWithLoading";
 
 type ActionButtonsProps = {
@@ -45,13 +46,11 @@ const ActionButtons = (props: ActionButtonsProps): ReactElement => {
       {!hideSecondaryButton && (
         <Grid item>
           <Button
-            disableElevation
+            text={secondaryButtonText || "Cancel"}
             variant="outlined"
             disabled={secondaryButtonDisabled}
             onClick={secondaryButtonOnClick}
-          >
-            {secondaryButtonText || "Cancel"}
-          </Button>
+          />
         </Grid>
       )}
       <Grid item>

@@ -1,10 +1,4 @@
-import {
-  Button,
-  Collapse,
-  createStyles,
-  makeStyles,
-  Theme,
-} from "@material-ui/core";
+import { Collapse, createStyles, makeStyles, Theme } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -12,6 +6,7 @@ import { interval } from "rxjs";
 import { catchError, exhaustMap, filter, take } from "rxjs/operators";
 import api from "../api";
 import WarningMessage from "../common/components/data-display/WarningMessage";
+import Button from "../common/components/input/buttons/Button";
 import { Path } from "../router/Path";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 
@@ -86,6 +81,7 @@ const SetupWarning = inject(BACKUP_STORE)(
               {
                 button: (
                   <Button
+                    text="Setup Now"
                     size="small"
                     color="inherit"
                     variant="outlined"
@@ -94,9 +90,7 @@ const SetupWarning = inject(BACKUP_STORE)(
                         `${Path.DASHBOARD}${Path.SETTINGS}${Path.INITIAL_SETUP}`
                       )
                     }
-                  >
-                    Setup Now
-                  </Button>
+                  />
                 ),
                 key: "CloseWarningBtn",
               },
