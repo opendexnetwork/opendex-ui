@@ -11,7 +11,7 @@ import { timer } from "rxjs";
 import { exhaustMap, retry } from "rxjs/operators";
 import api from "../../../api";
 import { getErrorMsg } from "../../../common/utils/errorUtil";
-import SectionTitle from "../SectionTitle";
+import SectionTitle from "../../../common/components/data-display/text/SectionTitle";
 import { Bucket } from "../../../models/OrderBookResponse";
 import Loader from "../../../common/components/data-display/loader/Loader";
 import ErrorMessage from "../../../common/components/data-display/ErrorMessage";

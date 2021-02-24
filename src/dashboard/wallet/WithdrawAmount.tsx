@@ -1,10 +1,7 @@
 import {
   createStyles,
-  FormControl,
   InputAdornment,
-  InputLabel,
   makeStyles,
-  OutlinedInput,
   Theme,
   Typography,
 } from "@material-ui/core";
@@ -15,10 +12,10 @@ import {
   satsToCoins,
   satsToCoinsStr,
 } from "../../common/utils/currencyUtil";
-import NumberInput from "../../common/components/input/NumberInput";
 import { GetServiceInfoResponse } from "../../models/GetServiceInfoResponse";
 import { getMaxWithdrawAmount, isAmountBetweenLimits } from "./walletUtil";
 import Button from "../../common/components/input/buttons/Button";
+import NumberField from "../../common/components/input/text/NumberField";
 
 type WithdrawAmountProps = {
   currency: string;
@@ -56,22 +53,18 @@ const WithdrawAmount = (props: WithdrawAmountProps): ReactElement => {
 
   return (
     <>
-      <FormControl variant="outlined">
-        <InputLabel htmlFor={inputId}>Amount</InputLabel>
-        <OutlinedInput
-          id={inputId}
-          labelWidth={60}
-          value={amount || ""}
-          onChange={(event) => {
-            setAmount(event.target.value);
-          }}
-          inputComponent={NumberInput as any}
-          inputProps={{ decimalScale: 8 }}
-          endAdornment={
-            <InputAdornment position="end">{currency}</InputAdornment>
-          }
-        />
-      </FormControl>
+      <NumberField
+        id={inputId}
+        label="Amount"
+        value={amount || ""}
+        onChange={(event) => {
+          setAmount(event.target.value);
+        }}
+        decimalScale={8}
+        endAdornment={
+          <InputAdornment position="end">{currency}</InputAdornment>
+        }
+      />
 
       {channelBalance < Number(serviceInfo.limits.minimal) ? (
         <Typography

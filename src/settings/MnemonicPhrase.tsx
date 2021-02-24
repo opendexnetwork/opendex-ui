@@ -1,7 +1,5 @@
 import {
-  Checkbox,
   createStyles,
-  FormControlLabel,
   Grid,
   makeStyles,
   Theme,
@@ -12,6 +10,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { Subject } from "rxjs";
 import api from "../api";
 import Loader from "../common/components/data-display/loader/Loader";
+import Checkbox from "../common/components/input/Checkbox";
 import OpendexdDependent from "../common/components/OpendexdDependent";
 import { getErrorMsg } from "../common/utils/errorUtil";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
@@ -77,17 +76,13 @@ const MnemonicPhrase = inject(BACKUP_STORE)(
                 ))}
               </ol>
               <Grid item container justify="center">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={checked}
-                      onChange={() =>
-                        setChecked((previousChecked) => !previousChecked)
-                      }
-                      name="checked"
-                      color="default"
-                    />
+                <Checkbox
+                  checked={checked}
+                  onChange={() =>
+                    setChecked((previousChecked) => !previousChecked)
                   }
+                  name="mnemonicCheck"
+                  id="mnemonicCheck"
                   label="I understand that I will not be able to recover my funds if I lose this data"
                 />
               </Grid>

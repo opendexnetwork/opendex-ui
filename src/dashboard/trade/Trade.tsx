@@ -15,7 +15,7 @@ import DashboardContent, {
 import ViewDisabled from "../ViewDisabled";
 import OpenOrders from "./openOrders/OpenOrders";
 import OrderBook from "./orderBook/OrderBook";
-import Select from "../../common/components/input/Select";
+import NativeSelect from "../../common/components/input/select/NativeSelect";
 import PlaceOrder from "./placeOrder/PlaceOrder";
 import ErrorMessage from "../../common/components/data-display/ErrorMessage";
 import { useTradeStore } from "../../stores/tradeStore";
@@ -137,7 +137,7 @@ class Trade extends DashboardContent<PropsType, StateType> {
               {pairs?.length ? (
                 <>
                   <Grid item container className={classes.pairSelect}>
-                    <Select
+                    <NativeSelect
                       value={activePair}
                       name="tradingpair"
                       onChange={(newValue) => {

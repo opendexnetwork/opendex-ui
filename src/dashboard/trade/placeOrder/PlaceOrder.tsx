@@ -15,7 +15,7 @@ import { getErrorMsg } from "../../../common/utils/errorUtil";
 import Loader from "../../../common/components/data-display/loader/Loader";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
 import { darkTheme, tradeTheme } from "../../../themes";
-import SectionTitle from "../SectionTitle";
+import SectionTitle from "../../../common/components/data-display/text/SectionTitle";
 import { isMarketOrder } from "../tradeUtil";
 import AmountDetails from "./AmountDetails";
 import AmountInput from "./AmountInput";

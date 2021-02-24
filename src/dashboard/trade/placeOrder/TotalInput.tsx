@@ -1,13 +1,7 @@
-import {
-  FormControl,
-  FormHelperText,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@material-ui/core";
+import { InputAdornment } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { ReactElement } from "react";
-import NumberInput from "../../../common/components/input/NumberInput";
+import NumberField from "../../../common/components/input/text/NumberField";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
 
 type TotalInputProps = {
@@ -28,28 +22,27 @@ const TotalInput = inject(TRADE_STORE)(
       };
 
       return (
-        <FormControl variant="outlined" fullWidth className={className}>
-          <InputLabel htmlFor="total">Total</InputLabel>
-          <OutlinedInput
-            error={showError}
-            labelWidth={40}
-            value={tradeStore!.total}
-            onChange={(event) => {
-              if (tradeStore!.total !== event.target.value) {
-                tradeStore!.setTotal(event.target.value);
-                onTotalChange();
-              }
-            }}
-            inputComponent={NumberInput as any}
-            inputProps={{ decimalScale: 8 }}
-            endAdornment={
-              <InputAdornment position="end">
-                {tradeStore!.quoteAsset}
-              </InputAdornment>
+        <NumberField
+          fullWidth
+          className={className}
+          id="total"
+          label="Total"
+          value={tradeStore!.total}
+          onChange={(event) => {
+            if (tradeStore!.total !== event.target.value) {
+              tradeStore!.setTotal(event.target.value);
+              onTotalChange();
             }
-          />
-          <FormHelperText>{showError && errorMessage()}</FormHelperText>
-        </FormControl>
+          }}
+          error={showError}
+          helperText={showError && errorMessage()}
+          endAdornment={
+            <InputAdornment position="end">
+              {tradeStore!.quoteAsset}
+            </InputAdornment>
+          }
+          decimalScale={8}
+        />
       );
     }
   )

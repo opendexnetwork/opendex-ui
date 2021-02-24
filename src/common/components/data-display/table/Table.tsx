@@ -10,7 +10,7 @@ import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
 import React, { ReactElement } from "react";
 import { copyToClipboard } from "../../../utils/appUtil";
 import IconButton from "../../input/buttons/IconButton";
-import CenterEllipsis from "../CenterEllipsis";
+import CenterEllipsis from "../text/CenterEllipsis";
 
 export type TableRow = {
   [key: string]: string | number | boolean | Date | ReactElement | undefined;

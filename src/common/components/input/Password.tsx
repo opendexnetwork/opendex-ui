@@ -1,13 +1,9 @@
-import {
-  FormControl,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@material-ui/core";
+import { InputAdornment } from "@material-ui/core";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import React, { ChangeEvent, ReactElement, useState } from "react";
 import IconButton from "./buttons/IconButton";
+import TextField from "./text/TextField";
 
 type PasswordProps = {
   label?: string;
@@ -23,29 +19,26 @@ const Password = (props: PasswordProps): ReactElement => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <FormControl variant="outlined">
-      <InputLabel htmlFor={label}>{label}</InputLabel>
-      <OutlinedInput
-        id={label}
-        labelWidth={label.length * 9}
-        value={value}
-        onChange={(event) => {
-          onChange(event);
-        }}
-        type={showPassword ? "text" : "password"}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              icon={showPassword ? <Visibility /> : <VisibilityOff />}
-              tooltipTitle={""}
-              aria-label="toggle password visibility"
-              onClick={() => setShowPassword(!showPassword)}
-              edge="end"
-            />
-          </InputAdornment>
-        }
-      />
-    </FormControl>
+    <TextField
+      label={label}
+      id={label}
+      value={value}
+      onChange={(event) => {
+        onChange(event);
+      }}
+      type={showPassword ? "text" : "password"}
+      endAdornment={
+        <InputAdornment position="end">
+          <IconButton
+            icon={showPassword ? <Visibility /> : <VisibilityOff />}
+            tooltipTitle={""}
+            aria-label="toggle password visibility"
+            onClick={() => setShowPassword(!showPassword)}
+            edge="end"
+          />
+        </InputAdornment>
+      }
+    />
   );
 };
 

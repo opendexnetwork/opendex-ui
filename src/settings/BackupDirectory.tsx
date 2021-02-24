@@ -1,10 +1,8 @@
 import {
   createStyles,
-  FormControl,
   Grid,
   InputAdornment,
   makeStyles,
-  OutlinedInput,
   Typography,
 } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
@@ -22,6 +20,7 @@ import { getErrorMsg } from "../common/utils/errorUtil";
 import { BackupStore, BACKUP_STORE } from "../stores/backupStore";
 import Button from "../common/components/input/buttons/Button";
 import IconButton from "../common/components/input/buttons/IconButton";
+import TextField from "../common/components/input/text/TextField";
 
 type BackupDirectoryProps = {
   onCompleteSubject?: Subject<boolean>;
@@ -31,7 +30,7 @@ type BackupDirectoryProps = {
 
 const useStyles = makeStyles(() =>
   createStyles({
-    inputContainer: {
+    input: {
       width: "100%",
       maxWidth: 500,
     },
@@ -131,31 +130,27 @@ const BackupDirectory = inject(
                 </Grid>
               )
             ) : (
-              <FormControl
-                variant="outlined"
-                className={classes.inputContainer}
-              >
-                <OutlinedInput
-                  id="backup-input"
-                  value={backupDirectory || ""}
-                  placeholder="/home/user/opendex-backup"
-                  onChange={(event) => {
-                    setBackupDirectory(event.target.value);
-                  }}
-                  endAdornment={
-                    !!backupDirectory && (
-                      <InputAdornment position="end">
-                        <IconButton
-                          icon={<CancelIcon fontSize="small" />}
-                          tooltipTitle="Cancel"
-                          edge="end"
-                          onClick={() => setBackupDirectory("")}
-                        />
-                      </InputAdornment>
-                    )
-                  }
-                />
-              </FormControl>
+              <TextField
+                className={classes.input}
+                id="backup-input"
+                value={backupDirectory || ""}
+                placeholder="/home/user/opendex-backup"
+                onChange={(event) => {
+                  setBackupDirectory(event.target.value);
+                }}
+                endAdornment={
+                  backupDirectory ? (
+                    <InputAdornment position="end">
+                      <IconButton
+                        icon={<CancelIcon fontSize="small" />}
+                        tooltipTitle="Cancel"
+                        edge="end"
+                        onClick={() => setBackupDirectory("")}
+                      />
+                    </InputAdornment>
+                  ) : undefined
+                }
+              />
             )}
           </Grid>
           <Grid
