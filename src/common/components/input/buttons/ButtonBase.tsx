@@ -28,9 +28,13 @@ const ButtonBase = (props: ButtonBaseProps): ReactElement => {
           title={getFormattedTooltipTitle(tooltipTitle)}
           placement={tooltipPlacement}
         >
-          <span>
+          {props.disabled ? (
+            <span>
+              <MaterialButton {...materialButtonProps} />
+            </span>
+          ) : (
             <MaterialButton {...materialButtonProps} />
-          </span>
+          )}
         </Tooltip>
       ) : (
         <MaterialButton {...materialButtonProps} />
