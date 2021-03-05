@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import ButtonBase, { ButtonBaseProps } from "./ButtonBase";
 
-type ButtonProps = Omit<ButtonBaseProps, "variant"> & {
+export type ButtonProps = Omit<ButtonBaseProps, "variant"> & {
   variant?: "contained" | "outlined";
 };
 
