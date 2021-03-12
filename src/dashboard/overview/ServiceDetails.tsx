@@ -1,8 +1,8 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core";
 import React, { ReactElement } from "react";
 import Dialog from "../../common/components/layout/dialog/Dialog";
+import { drawerWidth } from "../../common/components/navigation/Menu";
 import { Status } from "../../models/Status";
-import { drawerWidth } from "../Dashboard";
 import ServiceDetailsContent from "./ServiceDetailsContent";
 
 export type ServiceDetailsProps = {

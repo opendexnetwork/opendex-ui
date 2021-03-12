@@ -8,6 +8,10 @@ export const darkTheme = createMuiTheme({
     primary: {
       main: "#f45c24",
     },
+    background: {
+      default: "#0c0c0c",
+      paper: "#151515",
+    },
   },
 });
 
