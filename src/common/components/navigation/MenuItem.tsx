@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     color: getListItemColor(theme, props),
     borderRadius: getListItemBorderRadius(props),
     boxShadow: getListItemBoxShadow(props),
-    backgroundColor: props.selected ? "#0c0c0c" : "",
+    backgroundColor: props.selected ? "#0c0c0c" : "transparent",
     "&.MuiListItem-root:hover": {
       color: "#d7d9e2",
       backgroundColor: !props.selected ? "transparent" : "#0c0c0c",
@@ -87,6 +87,7 @@ function MenuItem(props: MenuItemProps): ReactElement {
         button={!props.isDisabled as any}
         component={props.isDisabled ? "div" : NavLink}
         to={navigateTo}
+        disableRipple={true}
       >
         <ListItemIcon className={classes.listIcon}>
           <props.icon />
