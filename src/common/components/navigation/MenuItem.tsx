@@ -22,27 +22,33 @@ export type MenuItemProps = {
 };
 
 const getListItemColor = (theme: Theme, props: MenuItemProps) => {
-  return props.isDisabled
-    ? theme.palette.text.disabled
-    : props.selected
-    ? "#d7d9e2"
-    : "#9a9ca4";
+  if (props.isDisabled) {
+    return theme.palette.text.disabled;
+  } else if (props.selected) {
+    return "#d7d9e2";
+  } else {
+    return "#9a9ca4";
+  }
 };
 
 const getListItemBorderRadius = (props: MenuItemProps) => {
-  return props.isBeforeSelected
-    ? "25px 0px 25px 25px"
-    : props.isAfterSelected
-    ? "25px 25px 0px 25px"
-    : "25px 0px 0px 25px";
+  if (props.isBeforeSelected) {
+    return "25px 0px 25px 25px";
+  } else if (props.isAfterSelected) {
+    return "25px 25px 0px 25px";
+  } else {
+    return "25px 0px 0px 25px";
+  }
 };
 
 const getListItemBoxShadow = (props: MenuItemProps) => {
-  return props.isBeforeSelected
-    ? "30px 0px 0px #0c0c0c"
-    : props.isAfterSelected
-    ? "25px 0px 0px #0c0c0c"
-    : "";
+  if (props.isBeforeSelected) {
+    return "30px 0px 0px #0c0c0c";
+  } else if (props.isAfterSelected) {
+    return "25px 0px 0px #0c0c0c";
+  } else {
+    return "";
+  }
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -54,9 +60,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: props.selected ? "#0c0c0c" : "",
     "&.MuiListItem-root:hover": {
       color: "#d7d9e2",
-      backgroundColor: !props.selected
-        ? "rgba(255, 255, 255, 0.08)"
-        : "#0c0c0c",
+      backgroundColor: !props.selected ? "transparent" : "#0c0c0c",
     },
   }),
   listIcon: {

@@ -122,11 +122,10 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSetSelectedIndex = () => {
-    menuItems.findIndex((item, i) => {
-      if (pathname === `${url}${item.path}`) {
-        setSelectedIndex(i);
-      }
-    });
+    const activeItem = menuItems.findIndex(
+      (item) => pathname === `${url}${item.path}`
+    );
+    setSelectedIndex(activeItem);
   };
 
   useEffect(() => {
