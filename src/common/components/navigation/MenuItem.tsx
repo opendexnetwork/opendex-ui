@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: getListItemBoxShadow(props),
     backgroundColor: props.selected ? "#0c0c0c" : "transparent",
     "&.MuiListItem-root:hover": {
-      color: "#d7d9e2",
+      color: !props.isDisabled ? "#d7d9e2" : "",
       backgroundColor: !props.selected ? "transparent" : "#0c0c0c",
     },
   }),
@@ -72,6 +72,7 @@ function MenuItem(props: MenuItemProps): ReactElement {
   const { url } = useRouteMatch();
   const classes = useStyles(props);
   const navigateTo = `${url}${props.path}`;
+  const buttonProps = props.isDisabled ? {} : { disableRipple: true };
 
   return (
     <Tooltip
@@ -87,7 +88,7 @@ function MenuItem(props: MenuItemProps): ReactElement {
         button={!props.isDisabled as any}
         component={props.isDisabled ? "div" : NavLink}
         to={navigateTo}
-        disableRipple={true}
+        {...buttonProps}
       >
         <ListItemIcon className={classes.listIcon}>
           <props.icon />
