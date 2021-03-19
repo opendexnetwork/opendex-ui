@@ -19,7 +19,6 @@ export type MenuItemProps = {
   isBeforeSelected?: boolean;
   isAfterSelected?: boolean;
   selected?: boolean;
-  selectedIndex?: number;
 };
 
 const getListItemColor = (theme: Theme, props: MenuItemProps) => {
@@ -33,9 +32,9 @@ const getListItemColor = (theme: Theme, props: MenuItemProps) => {
 };
 
 const getListItemBorderRadius = (props: MenuItemProps) => {
-  if (props.isBeforeSelected && props.selectedIndex !== -1) {
+  if (props.isBeforeSelected) {
     return "25px 0px 25px 25px";
-  } else if (props.isAfterSelected && props.selectedIndex !== -1) {
+  } else if (props.isAfterSelected) {
     return "25px 25px 0px 25px";
   } else {
     return "25px 0px 0px 25px";
@@ -43,9 +42,9 @@ const getListItemBorderRadius = (props: MenuItemProps) => {
 };
 
 const getListItemBoxShadow = (props: MenuItemProps) => {
-  if (props.isBeforeSelected && props.selectedIndex !== -1) {
+  if (props.isBeforeSelected) {
     return "30px 0px 0px #0c0c0c";
-  } else if (props.isAfterSelected && props.selectedIndex !== -1) {
+  } else if (props.isAfterSelected) {
     return "25px 0px 0px #0c0c0c";
   } else {
     return "";

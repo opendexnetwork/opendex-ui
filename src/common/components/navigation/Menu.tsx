@@ -106,8 +106,8 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSetSelectedIndex = () => {
-    const activeItem = menuItems.findIndex(
-      (item) => pathname === `${url}${item.path}`
+    const activeItem = menuItems.findIndex((item) =>
+      pathname.startsWith(`${url}${item.path}`)
     );
     setSelectedIndex(activeItem);
   };
@@ -141,10 +141,9 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
 
           {menuItems.map((item, i) => (
             <MenuItem
-              isBeforeSelected={i + 1 === selectedIndex}
-              isAfterSelected={i - 1 === selectedIndex}
+              isBeforeSelected={i + 1 === selectedIndex && selectedIndex !== -1}
+              isAfterSelected={i - 1 === selectedIndex && selectedIndex !== -1}
               selected={i === selectedIndex}
-              selectedIndex={selectedIndex}
               path={item.path}
               text={item.text}
               component={item.component}
