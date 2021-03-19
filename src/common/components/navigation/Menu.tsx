@@ -76,36 +76,21 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     paddingLeft: "10px",
   },
-  menuItem: {
-    color: "red",
-    textTransform: "capitalize",
-  },
-  menuItemSelected: {
-    backgroundColor: "red",
-    textTransform: "capitalize",
-  },
-  header: {
-    padding: "16px",
-  },
   drawerButton: {
     margin: theme.spacing(2),
   },
-  settingsContainer: {
-    paddingBottom: "20px",
-  },
-  borderRadiusTopContainer: {
+  borderRadiusContainer: {
     height: "25px",
   },
   borderRadiusOfTopContainer: {
     borderRadius: "0px 0px 25px 0px",
     boxShadow: "25px 0px 0px #0c0c0c",
-  },
-  borderRadiusBottomContainer: {
-    height: "25px",
+    transition: "box-shadow 0.1s ease",
   },
   borderRadiusOfBottomContainer: {
     borderRadius: "0px 25px 0px 0px",
     boxShadow: "25px 0px 0px #0c0c0c",
+    transition: "box-shadow 0.1s ease",
   },
 }));
 
@@ -118,7 +103,6 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
   const classes = useStyles();
   const { url } = useRouteMatch();
   const { pathname } = useLocation();
-
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSetSelectedIndex = () => {
@@ -150,8 +134,8 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
           <div
             className={
               selectedIndex === 0
-                ? `${classes.borderRadiusOfTopContainer} ${classes.borderRadiusTopContainer}`
-                : classes.borderRadiusTopContainer
+                ? `${classes.borderRadiusOfTopContainer} ${classes.borderRadiusContainer}`
+                : classes.borderRadiusContainer
             }
           ></div>
 
@@ -160,6 +144,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
               isBeforeSelected={i + 1 === selectedIndex}
               isAfterSelected={i - 1 === selectedIndex}
               selected={i === selectedIndex}
+              selectedIndex={selectedIndex}
               path={item.path}
               text={item.text}
               component={item.component}
@@ -173,8 +158,8 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
           <div
             className={
               selectedIndex === menuItems.length - 1
-                ? `${classes.borderRadiusOfBottomContainer} ${classes.borderRadiusBottomContainer}`
-                : classes.borderRadiusTopContainer
+                ? `${classes.borderRadiusOfBottomContainer} ${classes.borderRadiusContainer}`
+                : classes.borderRadiusContainer
             }
           ></div>
         </List>

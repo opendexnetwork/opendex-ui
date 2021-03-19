@@ -19,6 +19,7 @@ export type MenuItemProps = {
   isBeforeSelected?: boolean;
   isAfterSelected?: boolean;
   selected?: boolean;
+  selectedIndex?: number;
 };
 
 const getListItemColor = (theme: Theme, props: MenuItemProps) => {
@@ -32,9 +33,9 @@ const getListItemColor = (theme: Theme, props: MenuItemProps) => {
 };
 
 const getListItemBorderRadius = (props: MenuItemProps) => {
-  if (props.isBeforeSelected) {
+  if (props.isBeforeSelected && props.selectedIndex !== -1) {
     return "25px 0px 25px 25px";
-  } else if (props.isAfterSelected) {
+  } else if (props.isAfterSelected && props.selectedIndex !== -1) {
     return "25px 25px 0px 25px";
   } else {
     return "25px 0px 0px 25px";
@@ -42,14 +43,19 @@ const getListItemBorderRadius = (props: MenuItemProps) => {
 };
 
 const getListItemBoxShadow = (props: MenuItemProps) => {
-  if (props.isBeforeSelected) {
+  if (props.isBeforeSelected && props.selectedIndex !== -1) {
     return "30px 0px 0px #0c0c0c";
-  } else if (props.isAfterSelected) {
+  } else if (props.isAfterSelected && props.selectedIndex !== -1) {
     return "25px 0px 0px #0c0c0c";
   } else {
     return "";
   }
 };
+
+const getMuiListItemHoverFocusProperties = (props: MenuItemProps) => ({
+  color: !props.isDisabled ? "#d7d9e2" : "",
+  backgroundColor: !props.selected ? "transparent" : "#0c0c0c",
+});
 
 const useStyles = makeStyles((theme) => ({
   listItem: (props: MenuItemProps) => ({
@@ -58,10 +64,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: getListItemBorderRadius(props),
     boxShadow: getListItemBoxShadow(props),
     backgroundColor: props.selected ? "#0c0c0c" : "transparent",
-    "&.MuiListItem-root:hover": {
-      color: !props.isDisabled ? "#d7d9e2" : "",
-      backgroundColor: !props.selected ? "transparent" : "#0c0c0c",
-    },
+    "&.MuiListItem-root:hover": getMuiListItemHoverFocusProperties(props),
+    "&.Mui-focusVisible": getMuiListItemHoverFocusProperties(props),
   }),
   listIcon: {
     color: "inherit",
