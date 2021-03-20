@@ -106,8 +106,10 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleSetSelectedIndex = () => {
-    const activeItem = menuItems.findIndex((item) =>
-      pathname.startsWith(`${url}${item.path}`)
+    const activeItem = menuItems.findIndex(
+      (item) =>
+        pathname === `${url}${item.path}` ||
+        pathname.startsWith(`${url}${item.path}/`)
     );
     setSelectedIndex(activeItem);
   };
