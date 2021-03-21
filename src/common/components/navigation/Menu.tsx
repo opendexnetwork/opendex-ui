@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Drawer from "@material-ui/core/Drawer";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
 import CachedIcon from "@material-ui/icons/Cached";
@@ -9,7 +9,8 @@ import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
 import SettingsIcon from "@material-ui/icons/Settings";
 import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { useLocation, useRouteMatch } from "react-router-dom";
 import { Path } from "../../../router/Path";
 import MenuItem, { MenuItemProps } from "./MenuItem";
 import Overview from "../../../dashboard/overview/Overview";
@@ -20,6 +21,7 @@ import Console from "../../../dashboard/console/Console";
 import { isElectron, sendMessageToParent } from "../../utils/appUtil";
 import Button from "../input/buttons/Button";
 import Settings from "../../../settings/Settings";
+import { OpenDexMainLogo } from "../icons/OpenDexMainLogo";
 
 export const menuItems: MenuItemProps[] = [
   {
@@ -53,27 +55,44 @@ export const menuItems: MenuItemProps[] = [
     component: Console,
     icon: SportsEsportsIcon,
   },
+  {
+    path: Path.SETTINGS,
+    text: "Settings",
+    component: <Settings />,
+    icon: SettingsIcon,
+  },
 ];
 
-export const drawerWidth = 200;
+export const drawerWidth = 250;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    drawerPaper: {
-      width: drawerWidth,
-      justifyContent: "space-between",
-    },
-    menuContainer: {
-      width: "100%",
-    },
-    header: {
-      padding: "16px",
-    },
-    drawerButton: {
-      margin: theme.spacing(2),
-    },
-  })
-);
+const useStyles = makeStyles((theme) => ({
+  drawerPaper: {
+    width: drawerWidth,
+    justifyContent: "space-between",
+    background: "linear-gradient(#101013, #1c2027, #1a1112, #171011)",
+    border: "none",
+  },
+  menuContainer: {
+    width: "100%",
+    paddingLeft: "10px",
+  },
+  drawerButton: {
+    margin: theme.spacing(2),
+  },
+  borderRadiusContainer: {
+    height: "25px",
+  },
+  borderRadiusOfTopContainer: {
+    borderRadius: "0px 0px 25px 0px",
+    boxShadow: "25px 0px 0px #0c0c0c",
+    transition: "box-shadow 0.1s ease",
+  },
+  borderRadiusOfBottomContainer: {
+    borderRadius: "0px 25px 0px 0px",
+    boxShadow: "25px 0px 0px #0c0c0c",
+    transition: "box-shadow 0.1s ease",
+  },
+}));
 
 export interface MenuProps {
   syncInProgress: boolean;
@@ -82,6 +101,22 @@ export interface MenuProps {
 
 export const Menu: React.FunctionComponent<MenuProps> = (props) => {
   const classes = useStyles();
+  const { url } = useRouteMatch();
+  const { pathname } = useLocation();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const handleSetSelectedIndex = () => {
+    const activeItem = menuItems.findIndex(
+      (item) =>
+        pathname === `${url}${item.path}` ||
+        pathname.startsWith(`${url}${item.path}/`)
+    );
+    setSelectedIndex(activeItem);
+  };
+
+  useEffect(() => {
+    handleSetSelectedIndex();
+  });
 
   const disconnect = (): void => {
     sendMessageToParent("disconnect");
@@ -96,17 +131,21 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
       anchor="left"
     >
       <Grid container item>
-        <Typography
-          className={classes.header}
-          variant="overline"
-          component="p"
-          color="textSecondary"
-        >
-          OpenDEX
-        </Typography>
+        <OpenDexMainLogo />
         <List className={classes.menuContainer}>
-          {menuItems.map((item) => (
+          <div
+            className={
+              selectedIndex === 0
+                ? `${classes.borderRadiusOfTopContainer} ${classes.borderRadiusContainer}`
+                : classes.borderRadiusContainer
+            }
+          ></div>
+
+          {menuItems.map((item, i) => (
             <MenuItem
+              isBeforeSelected={i + 1 === selectedIndex && selectedIndex !== -1}
+              isAfterSelected={i - 1 === selectedIndex && selectedIndex !== -1}
+              selected={i === selectedIndex}
               path={item.path}
               text={item.text}
               component={item.component}
@@ -117,17 +156,16 @@ export const Menu: React.FunctionComponent<MenuProps> = (props) => {
               tooltipTextRows={props.menuItemTooltipMsg}
             />
           ))}
+          <div
+            className={
+              selectedIndex === menuItems.length - 1
+                ? `${classes.borderRadiusOfBottomContainer} ${classes.borderRadiusContainer}`
+                : classes.borderRadiusContainer
+            }
+          ></div>
         </List>
       </Grid>
       <Grid container item direction="column" justify="flex-end">
-        <Grid item container>
-          <MenuItem
-            path={Path.SETTINGS}
-            text={"Settings"}
-            component={Settings}
-            icon={SettingsIcon}
-          />
-        </Grid>
         {isElectron() && (
           <Grid item container justify="center">
             <Button

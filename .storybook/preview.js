@@ -18,4 +18,5 @@ export const parameters = {
   docs: {
     theme: storybookTheme,
   },
+  layout: 'centered',
 };

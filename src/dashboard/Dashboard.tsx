@@ -29,13 +29,15 @@ import SetupWarning from "./SetupWarning";
 import { isOpendexdReady } from "../common/utils/serviceUtil";
 import { ServiceStore, SERVICE_STORE } from "../stores/serviceStore";
 import { inject, observer } from "mobx-react";
-import { Menu, menuItems } from "../common/components/navigation/Menu";
+import {
+  Menu,
+  menuItems,
+  drawerWidth,
+} from "../common/components/navigation/Menu";
 
 type DashboardProps = {
   serviceStore?: ServiceStore;
 };
-
-export const drawerWidth = 200;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
