@@ -13,6 +13,9 @@ export const darkTheme = createMuiTheme({
       paper: "#151515",
     },
   },
+  typography: {
+    fontFamily: ["ApercuPro", "Arial", "sans-serif"].join(","),
+  },
 });
 
 export const tradeTheme = createMuiTheme({
