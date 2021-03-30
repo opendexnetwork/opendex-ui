@@ -29,6 +29,7 @@
     "react-number-format": "^4.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-youtube": "7.13.1",
     "rxjs": "^6.6.3",
     "socket.io-client": "^2.3.1",
     "xterm": "^4.9.0",
@@ -44,7 +45,6 @@
     "@storybook/preset-create-react-app": "^3.1.6",
     "@storybook/react": "^6.1.21",
     "@storybook/theming": "^6.1.21",
-    "storybook-react-router": "^1.0.8",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -61,6 +61,7 @@
     "cross-env": "^7.0.2",
     "eslint-plugin-jest": "^24.0.2",
     "prettier": "^2.1.2",
+    "storybook-react-router": "^1.0.8",
     "ts-jest": "^26.4.0",
     "typescript": "^3.7.5"
   },
