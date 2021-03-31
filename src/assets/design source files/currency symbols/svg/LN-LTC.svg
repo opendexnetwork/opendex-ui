@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="32px" viewBox="0 0 42 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>LN-LTC_32</title>
+    <defs>
+        <radialGradient cx="50%" cy="50.8164929%" fx="50%" fy="50.8164929%" r="49.1890632%" id="radialGradient-1">
+            <stop stop-color="#FF4400" offset="0%"></stop>
+            <stop stop-color="#0A0E1A" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="website" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.2-v1_fall_menu-folded-out" transform="translate(-947.000000, -620.000000)">
+            <g id="background" transform="translate(0.000000, -732.000000)">
+                <rect id="frame" fill="#0C0C0C" x="0" y="732" width="1440" height="1024"></rect>
+                <circle id="Oval" fill="url(#radialGradient-1)" opacity="0.0458308629" cx="720" cy="720" r="720"></circle>
+            </g>
+            <g id="swap" transform="translate(923.000000, 212.000000)" fill="#1A1817">
+                <g id="fee-and-rate" transform="translate(0.000000, 256.000000)">
+                    <rect id="Rectangle" x="0" y="0" width="480" height="232" rx="2"></rect>
+                </g>
+            </g>
+            <g id="menu-folded-out" transform="translate(923.000000, 364.000000)">
+                <path d="M2,0 L195,0 C196.104569,-2.02906125e-16 197,0.8954305 197,2 L197,350 C197,351.104569 196.104569,352 195,352 L2,352 C0.8954305,352 1.3527075e-16,351.104569 0,350 L0,2 C-5.7935996e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="Rectangle" fill="#302E2C"></path>
+                <g id="LN-LTC" transform="translate(24.000000, 256.000000)">
+                    <g transform="translate(1.024390, 0.000000)">
+                        <g id="Group" transform="translate(8.195122, 0.000000)">
+                            <ellipse id="Oval" fill="#CBC6C6" cx="16.3902439" cy="16" rx="16.3902439" ry="16"></ellipse>
+                            <polygon id="Path" fill="#FFFFFF" points="10.6878049 19.2166667 9.2195122 19.7666667 9.9195122 17 11.404878 16.4166667 13.5390244 8 18.797561 8 17.2439024 14.2 18.695122 13.6333333 17.995122 16.3833333 16.5268293 16.95 15.6560976 20.4333333 23.5609756 20.4333333 22.6731707 24 9.47560976 24"></polygon>
+                        </g>
+                        <path d="M5.99268293,19.2 L2.04878049,19.2 C1.31463415,19.2 0.648780488,18.8 0.341463415,18.15 C0.0170731707,17.5166667 0.102439024,16.7666667 0.529268293,16.2 L7.27317073,7.53333333 C7.78536585,6.86666667 8.70731707,6.61666667 9.5097561,6.93333333 C10.295122,7.25 10.7731707,8.03333333 10.6878049,8.86666667 L10.2439024,12.8 L14.1878049,12.8 C14.9219512,12.8 15.5878049,13.2 15.895122,13.85 C16.202439,14.4833333 16.1341463,15.2333333 15.6902439,15.8 L8.94634146,24.4666667 C8.58780488,24.9333333 8.02439024,25.2 7.42682927,25.2 C7.18780488,25.2 6.93170732,25.15 6.7097561,25.0666667 C5.92439024,24.75 5.44634146,23.9666667 5.53170732,23.1333333 L5.99268293,19.2 Z" id="Path" stroke="#FFFFFF" stroke-width="2.4" fill="#E1C218"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

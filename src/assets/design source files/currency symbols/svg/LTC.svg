@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="32px" viewBox="0 0 42 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>LTC_32</title>
+    <defs>
+        <radialGradient cx="50%" cy="50.8164929%" fx="50%" fy="50.8164929%" r="49.1890632%" id="radialGradient-1">
+            <stop stop-color="#FF4400" offset="0%"></stop>
+            <stop stop-color="#0A0E1A" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="website" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.2-v1_fall_menu-folded-out" transform="translate(-947.000000, -572.000000)">
+            <g id="background" transform="translate(0.000000, -732.000000)">
+                <rect id="frame" fill="#0C0C0C" x="0" y="732" width="1440" height="1024"></rect>
+                <circle id="Oval" fill="url(#radialGradient-1)" opacity="0.0458308629" cx="720" cy="720" r="720"></circle>
+            </g>
+            <g id="swap" transform="translate(923.000000, 212.000000)">
+                <g id="fee-and-rate" transform="translate(0.000000, 256.000000)">
+                    <rect id="Rectangle" fill="#1A1817" x="0" y="0" width="480" height="232" rx="2"></rect>
+                    <text id="Miner-fee" font-family="ApercuPro-Regular, Apercu Pro" font-size="16" font-weight="normal" fill="#979797">
+                        <tspan x="24" y="144">Miner fee</tspan>
+                    </text>
+                    <text id="Rate" font-family="ApercuPro-Regular, Apercu Pro" font-size="16" font-weight="normal" fill="#979797">
+                        <tspan x="24" y="109">Rate</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="menu-folded-out" transform="translate(923.000000, 364.000000)">
+                <path d="M2,0 L195,0 C196.104569,-2.02906125e-16 197,0.8954305 197,2 L197,350 C197,351.104569 196.104569,352 195,352 L2,352 C0.8954305,352 1.3527075e-16,351.104569 0,350 L0,2 C-5.7935996e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="Rectangle" fill="#302E2C"></path>
+                <g id="LTC" transform="translate(24.000000, 208.000000)">
+                    <g transform="translate(9.219512, 0.000000)">
+                        <ellipse id="Oval" fill="#CBC6C6" cx="16.3902439" cy="16" rx="16.3902439" ry="16"></ellipse>
+                        <polygon id="Path" fill="#FFFFFF" points="10.6878049 19.2166667 9.2195122 19.7666667 9.9195122 17 11.404878 16.4166667 13.5390244 8 18.797561 8 17.2439024 14.2 18.695122 13.6333333 17.995122 16.3833333 16.5268293 16.95 15.6560976 20.4333333 23.5609756 20.4333333 22.6731707 24 9.47560976 24"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
