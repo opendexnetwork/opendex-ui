@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="32px" viewBox="0 0 42 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>USDT_32</title>
+    <defs>
+        <radialGradient cx="50%" cy="50.8164929%" fx="50%" fy="50.8164929%" r="49.1890632%" id="radialGradient-1">
+            <stop stop-color="#FF4400" offset="0%"></stop>
+            <stop stop-color="#0A0E1A" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="website" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.2-v1_fall_menu-folded-out" transform="translate(-947.000000, -476.000000)">
+            <g id="background" transform="translate(0.000000, -732.000000)">
+                <rect id="frame" fill="#0C0C0C" x="0" y="732" width="1440" height="1024"></rect>
+                <circle id="Oval" fill="url(#radialGradient-1)" opacity="0.0458308629" cx="720" cy="720" r="720"></circle>
+            </g>
+            <g id="swap" transform="translate(923.000000, 212.000000)">
+                <g id="fee-and-rate" transform="translate(0.000000, 256.000000)">
+                    <rect id="Rectangle" fill="#1A1817" x="0" y="0" width="480" height="232" rx="2"></rect>
+                    <text id="Min-amount" font-family="ApercuPro-Regular, Apercu Pro" font-size="16" font-weight="normal" fill="#979797">
+                        <tspan x="24" y="39">Min amount</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="menu-folded-out" transform="translate(923.000000, 364.000000)">
+                <path d="M2,0 L195,0 C196.104569,-2.02906125e-16 197,0.8954305 197,2 L197,350 C197,351.104569 196.104569,352 195,352 L2,352 C0.8954305,352 1.3527075e-16,351.104569 0,350 L0,2 C-5.7935996e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z" id="Rectangle" fill="#302E2C"></path>
+                <g id="USDT" transform="translate(24.000000, 112.000000)">
+                    <g transform="translate(9.219512, 0.000000)">
+                        <ellipse id="Oval" fill="#49A489" cx="16.3902439" cy="16" rx="16.3902439" ry="16"></ellipse>
+                        <path d="M18.1972683,13.78 L18.1972683,11.648 L23.2384976,11.648 L23.2384976,8.32 L9.54199024,8.32 L9.54199024,11.648 L14.5832195,11.648 L14.5832195,13.78 C10.379122,13.972 7.21170732,14.8168 7.21170732,15.832 C7.21170732,16.8464 10.379122,17.6912 14.5832195,17.8816 L14.5832195,24.96 L18.1972683,24.96 L18.1972683,17.8832 C22.4013659,17.6912 25.5687805,16.8464 25.5687805,15.8316 C25.5687805,14.8168 22.4013659,13.9708 18.1972683,13.7804 L18.1972683,13.78 Z M16.343122,17.304 C11.7976976,17.304 8.11521951,16.5816 8.11521951,15.6892 C8.11521951,14.9144 10.8835317,14.2684 14.5832195,14.1092 L14.5832195,16.6872 L18.1972683,16.6872 L18.1972683,14.1136 C21.8473756,14.278 24.5710244,14.9224 24.5710244,15.6892 C24.5710244,16.5804 20.8864976,17.3056 16.343122,17.3056 L16.343122,17.3044 L16.343122,17.304 Z" id="Shape" fill="#F2F2F2" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
