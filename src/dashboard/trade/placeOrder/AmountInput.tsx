@@ -7,13 +7,19 @@ import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
 type AmountInputProps = {
   onAmountChange: () => void;
   className?: string;
+  InputAdornmentClass?: string;
   tradeStore?: TradeStore;
 };
 
 const AmountInput = inject(TRADE_STORE)(
   observer(
     (props: AmountInputProps): ReactElement => {
-      const { tradeStore, onAmountChange, className } = props;
+      const {
+        tradeStore,
+        onAmountChange,
+        className,
+        InputAdornmentClass,
+      } = props;
       const showError = !tradeStore!.isAmountValid;
 
       const errorMessage = (): string => {
@@ -22,6 +28,7 @@ const AmountInput = inject(TRADE_STORE)(
 
       return (
         <NumberField
+          className={className}
           fullWidth
           id="amount"
           label="Amount"
@@ -32,13 +39,14 @@ const AmountInput = inject(TRADE_STORE)(
           }}
           error={showError}
           helperText={showError && errorMessage()}
-          endAdornment={
-            <InputAdornment position="end">
-              {tradeStore!.baseAsset}
-            </InputAdornment>
-          }
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <p className={InputAdornmentClass}>{tradeStore!.baseAsset}</p>
+              </InputAdornment>
+            ),
+          }}
           decimalScale={8}
-          className={className}
         />
       );
     }
