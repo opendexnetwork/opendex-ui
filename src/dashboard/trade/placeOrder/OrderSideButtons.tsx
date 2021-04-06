@@ -1,4 +1,4 @@
-import { ButtonGroup } from "@material-ui/core";
+import { ButtonGroup, makeStyles } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { ReactElement } from "react";
 import Button from "../../../common/components/input/buttons/Button";
@@ -10,9 +10,43 @@ type OrderSideButtonsProps = {
   tradeStore?: TradeStore;
 };
 
+const useStyles = makeStyles((theme) => ({
+  buyButton: (props: OrderSideButtonsProps) => ({
+    fontSize: "16px",
+    color: props.tradeStore!.isBuyActive
+      ? theme.palette.primary.main
+      : "#636363",
+    border: "none",
+    borderBottom: props.tradeStore!.isBuyActive
+      ? `2px solid ${theme.palette.primary.main}`
+      : "2px solid #232322",
+
+    borderRadius: "initial",
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  }),
+  sellButton: (props: OrderSideButtonsProps) => ({
+    fontSize: "16px",
+    color: props.tradeStore!.isBuyActive
+      ? "#636363"
+      : theme.palette.secondary.main,
+    border: "none",
+    borderBottom: props.tradeStore!.isBuyActive
+      ? "2px solid #232322"
+      : `2px solid ${theme.palette.secondary.main}`,
+
+    borderRadius: "initial",
+    "&:hover": {
+      backgroundColor: "transparent",
+    },
+  }),
+}));
+
 const OrderSideButtons = inject(TRADE_STORE)(
   observer(
     (props: OrderSideButtonsProps): ReactElement => {
+      const classes = useStyles(props);
       const { tradeStore, onClick, className } = props;
 
       return (
@@ -23,8 +57,7 @@ const OrderSideButtons = inject(TRADE_STORE)(
               tradeStore!.setIsBuyActive(true);
               onClick();
             }}
-            color="primary"
-            variant={tradeStore!.isBuyActive ? "contained" : "outlined"}
+            className={classes.buyButton}
           />
           <Button
             text="Sell"
@@ -32,8 +65,7 @@ const OrderSideButtons = inject(TRADE_STORE)(
               tradeStore!.setIsBuyActive(false);
               onClick();
             }}
-            color="secondary"
-            variant={tradeStore!.isBuyActive ? "outlined" : "contained"}
+            className={classes.sellButton}
           />
         </ButtonGroup>
       );

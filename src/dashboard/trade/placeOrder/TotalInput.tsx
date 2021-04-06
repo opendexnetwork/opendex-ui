@@ -8,12 +8,18 @@ type TotalInputProps = {
   onTotalChange: () => void;
   className?: string;
   tradeStore?: TradeStore;
+  InputAdornmentClass?: string;
 };
 
 const TotalInput = inject(TRADE_STORE)(
   observer(
     (props: TotalInputProps): ReactElement => {
-      const { tradeStore, className, onTotalChange } = props;
+      const {
+        tradeStore,
+        className,
+        onTotalChange,
+        InputAdornmentClass,
+      } = props;
 
       const showError = !tradeStore!.isTotalValid;
 
@@ -36,11 +42,13 @@ const TotalInput = inject(TRADE_STORE)(
           }}
           error={showError}
           helperText={showError && errorMessage()}
-          endAdornment={
-            <InputAdornment position="end">
-              {tradeStore!.quoteAsset}
-            </InputAdornment>
-          }
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <p className={InputAdornmentClass}>{tradeStore!.quoteAsset}</p>
+              </InputAdornment>
+            ),
+          }}
           decimalScale={8}
         />
       );

@@ -9,8 +9,8 @@ export enum OrderRole {
 }
 
 export enum OrderType {
-  MARKET = "MARKET",
-  LIMIT = "LIMIT",
+  MARKET = "Market",
+  LIMIT = "Limit",
 }
 
 export enum OrderSide {

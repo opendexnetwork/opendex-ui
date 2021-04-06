@@ -15,7 +15,6 @@ const TextField = (props: TextFieldProps): ReactElement => {
 
   return (
     <MaterialTextField
-      variant="outlined"
       InputProps={{
         endAdornment: endAdornment,
         startAdornment: startAdornment,

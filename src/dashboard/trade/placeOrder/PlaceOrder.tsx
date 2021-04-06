@@ -1,50 +1,15 @@
-import {
-  createStyles,
-  Grid,
-  makeStyles,
-  Theme,
-  ThemeProvider,
-} from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { combineLatest, Subscription, timer } from "rxjs";
 import { exhaustMap, retry } from "rxjs/operators";
 import api from "../../../api";
-import ErrorMessage from "../../../common/components/data-display/ErrorMessage";
 import { getErrorMsg } from "../../../common/utils/errorUtil";
-import Loader from "../../../common/components/data-display/loader/Loader";
 import { TradeStore, TRADE_STORE } from "../../../stores/tradeStore";
-import { darkTheme, tradeTheme } from "../../../themes";
-import SectionTitle from "../../../common/components/data-display/text/SectionTitle";
-import { isMarketOrder } from "../tradeUtil";
-import AmountDetails from "./AmountDetails";
-import AmountInput from "./AmountInput";
-import OrderSideButtons from "./OrderSideButtons";
-import PlaceOrderButton from "./PlaceOrderButton";
-import PriceInput from "./PriceInput";
-import TotalInput from "./TotalInput";
+import PlaceOrderContent from "./PlaceOrderContent";
 
 type PlaceOrderProps = {
   tradeStore?: TradeStore;
 };
-
-const useStyles = makeStyles((theme: Theme) => {
-  return createStyles({
-    wrapper: {
-      padding: theme.spacing(2),
-      position: "relative",
-    },
-    content: {
-      flex: 1,
-    },
-    row: {
-      marginTop: theme.spacing(2),
-    },
-    resultMessageContainer: {
-      margin: `${theme.spacing(2)}px 0`,
-    },
-  });
-});
 
 const resetFormData = (tradeStore: TradeStore) => {
   tradeStore.setAmount("");
@@ -57,13 +22,11 @@ const PlaceOrder = inject(TRADE_STORE)(
     (props: PlaceOrderProps): ReactElement => {
       const { tradeStore } = props;
       const activePair = tradeStore!.activePair!;
-      const classes = useStyles();
       const [loadingErrors, setLoadingErrors] = useState<Set<string>>(
         new Set()
       );
       const [orderError, setOrderError] = useState("");
       const [initialLoadCompleted, setInitialLoadCompleted] = useState(false);
-      const id = "placeOrder";
 
       const resetMetaData = () => {
         setLoadingErrors(new Set());
@@ -142,93 +105,16 @@ const PlaceOrder = inject(TRADE_STORE)(
         return () => sub.unsubscribe();
       }, [tradeStore, activePair]);
 
-      const color = tradeStore!.isBuyActive ? "primary" : "secondary";
-
       return (
-        <div className={classes.wrapper} id={id}>
-          <ThemeProvider theme={tradeTheme}>
-            <SectionTitle title="Place Order" />
-            {!initialLoadCompleted || loadingErrors.size ? (
-              <>
-                {!initialLoadCompleted ? (
-                  <Loader />
-                ) : (
-                  <ErrorMessage
-                    details={[...loadingErrors].map((err) => {
-                      return {
-                        detail: err,
-                        key: err.substr(0, 10) + err.substr(err.length - 4),
-                      };
-                    })}
-                  />
-                )}
-                <Grid item container />
-              </>
-            ) : (
-              !!tradeStore!.baseAssetLimits &&
-              !!tradeStore!.quoteAssetLimits && (
-                <Grid
-                  item
-                  container
-                  direction="column"
-                  className={classes.content}
-                >
-                  <OrderSideButtons
-                    onClick={() => resetMetaData()}
-                    className={classes.row}
-                  />
-                  <ThemeProvider theme={darkTheme}>
-                    <PriceInput
-                      onOrderTypeChange={() => resetMetaData()}
-                      onPriceChange={() => resetMetaData()}
-                      className={classes.row}
-                    />
-                    <AmountInput
-                      onAmountChange={() => resetMetaData()}
-                      className={classes.row}
-                    />
-                  </ThemeProvider>
-                  <AmountDetails
-                    onSliderValueChange={() => resetMetaData()}
-                    color={color}
-                    className={classes.row}
-                  />
-                  {!isMarketOrder(tradeStore!.orderType) && (
-                    <ThemeProvider theme={darkTheme}>
-                      <TotalInput
-                        onTotalChange={() => resetMetaData()}
-                        className={classes.row}
-                      />
-                    </ThemeProvider>
-                  )}
-                  <Grid
-                    item
-                    container
-                    className={classes.resultMessageContainer}
-                  >
-                    {orderError && (
-                      <ErrorMessage
-                        mainMessage="Failed to place order"
-                        details={orderError}
-                      />
-                    )}
-                  </Grid>
-                  <PlaceOrderButton
-                    color={color}
-                    contentId={id}
-                    onClick={() => {
-                      setOrderError("");
-                    }}
-                    onSuccess={() => {
-                      resetFormData(tradeStore!);
-                    }}
-                    onError={(err) => setOrderError(getErrorMsg(err))}
-                  />
-                </Grid>
-              )
-            )}
-          </ThemeProvider>
-        </div>
+        <PlaceOrderContent
+          initialLoadCompleted={initialLoadCompleted}
+          loadingErrors={loadingErrors}
+          resetMetaData={resetMetaData}
+          resetFormData={resetFormData}
+          setOrderError={setOrderError}
+          orderError={orderError}
+          tradeStore={tradeStore}
+        />
       );
     }
   )

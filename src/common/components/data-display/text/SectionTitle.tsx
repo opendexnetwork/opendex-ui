@@ -1,10 +1,4 @@
-import {
-  createStyles,
-  Grid,
-  makeStyles,
-  Tooltip,
-  Typography,
-} from "@material-ui/core";
+import { createStyles, Grid, makeStyles, Tooltip } from "@material-ui/core";
 import InfoIcon from "@material-ui/icons/InfoOutlined";
 import React, { ReactElement } from "react";
 
@@ -19,6 +13,10 @@ const useStyles = makeStyles(() => {
       display: "flex",
       alignItems: "center",
     },
+    sectionTitle: {
+      color: "#f2f2f2",
+      fontSize: "18px",
+    },
   });
 });
 
@@ -26,18 +24,9 @@ const SectionTitle = (props: SectionTitleProps): ReactElement => {
   const classes = useStyles();
 
   return (
-    <Grid
-      item
-      container
-      justify="center"
-      alignItems="center"
-      wrap="nowrap"
-      spacing={1}
-    >
+    <Grid item>
       <Grid item>
-        <Typography component="h2" variant="overline" align="center">
-          {props.title}
-        </Typography>
+        <h1 className={classes.sectionTitle}>{props.title}</h1>
       </Grid>
 
       {!!props.info && (
