@@ -2,13 +2,7 @@ import React, { useEffect, useState } from "react";
 import Drawer from "@material-ui/core/Drawer";
 import { Grid } from "@material-ui/core";
 import List from "@material-ui/core/List";
-import AccountBalanceWalletOutlinedIcon from "@material-ui/icons/AccountBalanceWalletOutlined";
 import CachedIcon from "@material-ui/icons/Cached";
-import HistoryIcon from "@material-ui/icons/History";
-import RemoveRedEyeOutlinedIcon from "@material-ui/icons/RemoveRedEyeOutlined";
-import SettingsIcon from "@material-ui/icons/Settings";
-import SportsEsportsIcon from "@material-ui/icons/SportsEsports";
-import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import { makeStyles } from "@material-ui/core/styles";
 import { useLocation, useRouteMatch } from "react-router-dom";
 import { Path } from "../../../router/Path";
@@ -18,9 +12,17 @@ import Trade from "../../../dashboard/trade/Trade";
 import Tradehistory from "../../../dashboard/tradehistory/Tradehistory";
 import Wallets from "../../../dashboard/wallet/Wallets";
 import Console from "../../../dashboard/console/Console";
+import Learn from "../../../dashboard/learn/Learn";
 import { isElectron, sendMessageToParent } from "../../utils/appUtil";
 import Button from "../input/buttons/Button";
 import Settings from "../../../settings/Settings";
+import { LearnIcon } from "../icons/LearnIcon";
+import { OverviewIcon } from "../icons/OverviewIcon";
+import { TradeIcon } from "../icons/TradeIcon";
+import { TradeHistoryIcon } from "../icons/TradeHistoryIcon";
+import { WalletIcon } from "../icons/WalletIcon";
+import { ConsoleIcon } from "../icons/ConsoleIcon";
+import { SettingsIcon } from "../icons/SettingsIcon";
 import { OpenDexMainLogo } from "../icons/OpenDexMainLogo";
 
 export const menuItems: MenuItemProps[] = [
@@ -28,32 +30,38 @@ export const menuItems: MenuItemProps[] = [
     path: Path.OVERVIEW,
     text: "Overview",
     component: Overview,
-    icon: RemoveRedEyeOutlinedIcon,
+    icon: OverviewIcon,
     isFallback: true,
   },
   {
     path: Path.TRADE,
     text: "Trade",
     component: Trade,
-    icon: TrendingUpIcon,
+    icon: TradeIcon,
   },
   {
     path: Path.TRADEHISTORY,
     text: "Trade History",
     component: Tradehistory,
-    icon: HistoryIcon,
+    icon: TradeHistoryIcon,
   },
   {
     path: Path.WALLETS,
     text: "Wallets",
     component: Wallets,
-    icon: AccountBalanceWalletOutlinedIcon,
+    icon: WalletIcon,
   },
   {
     path: Path.CONSOLE,
     text: "Console",
     component: Console,
-    icon: SportsEsportsIcon,
+    icon: ConsoleIcon,
+  },
+  {
+    path: Path.LEARN,
+    text: "Learn",
+    component: <Learn />,
+    icon: LearnIcon,
   },
   {
     path: Path.SETTINGS,
