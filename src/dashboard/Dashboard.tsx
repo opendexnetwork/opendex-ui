@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       marginLeft: drawerWidth,
       backgroundColor: theme.palette.background.default,
-      padding: theme.spacing(3),
+      padding: theme.spacing(4),
       height: "100vh",
       display: "flex",
       flexDirection: "column",

@@ -1,24 +1,48 @@
-import { Divider, Grid, makeStyles } from "@material-ui/core";
-import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
+import { Grid, makeStyles } from "@material-ui/core";
 import React, { ReactElement } from "react";
 import { copyToClipboard } from "../../utils/appUtil";
-import IconButton from "../input/buttons/IconButton";
+import { copyIcon } from "../../../common/utils/svgIcons";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 type LabeledRowProps = {
   label: string;
   value: string | number;
-  paddingSpacing?: number;
   showCopyIcon?: boolean;
+  padding?: string;
   reserveSpaceForCopyIcon?: boolean;
+  statusIcon?: string;
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   cell: (props: LabeledRowProps) => ({
-    padding: theme.spacing(props.paddingSpacing ?? 2),
-    textAlign: "center",
+    padding: props.padding ? props.padding : "15px 40px",
     wordWrap: "break-word",
     whiteSpace: "pre-wrap",
+    fontSize: "16px",
   }),
+  textLabel: {
+    color: "#979797",
+  },
+  textValue: {
+    color: "#f2f2f2",
+  },
+  copyIcon: {
+    paddingRight: "5px",
+  },
+  copyContainer: {
+    cursor: "pointer",
+    color: "#f15a24",
+    fontSize: "14px",
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  statusContainer: {
+    display: "flex",
+    alignItems: "center",
+  },
+  statusIcon: {
+    marginRight: "10px",
+  },
 }));
 
 const LabeledRow = (props: LabeledRowProps): ReactElement => {
@@ -26,22 +50,42 @@ const LabeledRow = (props: LabeledRowProps): ReactElement => {
   const classes = useStyles(props);
 
   return (
-    <Grid container item justify="space-between" alignItems="center">
-      <Grid item xs={reserveSpaceForCopyIcon ? 3 : 4} className={classes.cell}>
+    <Grid container item alignItems="center">
+      <Grid
+        item
+        xs={reserveSpaceForCopyIcon ? 2 : 3}
+        className={`${classes.cell} ${classes.textLabel}`}
+      >
         {label}
       </Grid>
-      <Divider orientation="vertical" flexItem />
-      <Grid item xs={reserveSpaceForCopyIcon ? 6 : 7} className={classes.cell}>
-        {value}
+
+      <Grid
+        item
+        xs={reserveSpaceForCopyIcon ? 6 : 7}
+        className={`${classes.cell} ${classes.textValue}`}
+      >
+        {props.statusIcon ? (
+          <div className={classes.statusContainer}>
+            <img
+              src={props.statusIcon}
+              className={classes.statusIcon}
+              alt="status"
+            />
+            {value}
+          </div>
+        ) : (
+          <div>{value}</div>
+        )}
       </Grid>
       {reserveSpaceForCopyIcon && (
         <Grid item xs={2} className={classes.cell}>
           {showCopyIcon && (
-            <IconButton
-              icon={<FileCopyOutlinedIcon fontSize="small" />}
-              tooltipTitle="Copy to clipboard"
-              onClick={() => copyToClipboard(value)}
-            />
+            <div className={classes.copyContainer}>
+              <ButtonBase onClick={() => copyToClipboard(value)}>
+                <img src={copyIcon} alt="copy" className={classes.copyIcon} />
+                Copy
+              </ButtonBase>
+            </div>
           )}
         </Grid>
       )}

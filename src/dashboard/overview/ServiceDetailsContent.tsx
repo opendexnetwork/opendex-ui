@@ -18,6 +18,7 @@ import LabeledRow from "../../common/components/data-display/LabeledRow";
 export type ServiceDetailsContentProps = {
   status: Status;
   closeDetails: () => void;
+  statusIcon: string;
 };
 
 type InfoRow = {
@@ -29,7 +30,8 @@ type InfoRow = {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
-      padding: 0,
+      padding: "20px",
+      backgroundColor: "#161616",
     },
     textRow: {
       padding: theme.spacing(3),
@@ -125,7 +127,7 @@ const createLndRows = (lndInfo: LndInfo): InfoRow[] => [
 const ServiceDetailsContent = (
   props: ServiceDetailsContentProps
 ): ReactElement => {
-  const { status, closeDetails } = props;
+  const { status, closeDetails, statusIcon } = props;
   const classes = useStyles();
   const [rows, setRows] = useState<InfoRow[]>([]);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
@@ -151,6 +153,7 @@ const ServiceDetailsContent = (
             label={row.label}
             value={row.value}
             showCopyIcon={row.copyIcon}
+            statusIcon={row.label === "Status" ? statusIcon : ""}
             reserveSpaceForCopyIcon
           />
         ))
