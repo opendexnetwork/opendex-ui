@@ -1,4 +1,4 @@
-import { createStyles, withStyles, WithStyles, Icon } from "@material-ui/core";
+import { createStyles, withStyles, WithStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import { inject, observer } from "mobx-react";
 import React, { ReactElement } from "react";
@@ -11,7 +11,7 @@ import DashboardContent, {
   DashboardContentState,
 } from "../DashboardContent";
 import OverviewItem from "./OverviewItem";
-import { notificationIcon } from "../../common/utils/svgIcons";
+import PageTitle from "../../common/components/data-display/text/PageTitle";
 
 type PropsType = DashboardContentProps & WithStyles<typeof styles>;
 
@@ -82,20 +82,7 @@ class Overview extends DashboardContent<PropsType, StateType> {
 
     return (
       <div>
-        <div className={classes.headingContainer}>
-          <h1 className={classes.heading}>Overview</h1>
-          <Icon
-            onClick={() => this.handleSelectNotifications()}
-            className={classes.notificationIconContainer}
-          >
-            <img
-              src={notificationIcon}
-              alt="notifications"
-              className={classes.notificationIcon}
-            />
-          </Icon>
-        </div>
-
+        <PageTitle title="Overview" />
         <Grid container spacing={2} className={classes.wrapper}>
           {this.state.initialLoadCompleted ? (
             this.state.statuses &&

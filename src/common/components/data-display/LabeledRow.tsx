@@ -7,15 +7,15 @@ import ButtonBase from "@material-ui/core/ButtonBase";
 type LabeledRowProps = {
   label: string;
   value: string | number;
-  paddingSpacing?: number;
   showCopyIcon?: boolean;
+  padding?: string;
   reserveSpaceForCopyIcon?: boolean;
   statusIcon?: string;
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   cell: (props: LabeledRowProps) => ({
-    padding: theme.spacing(props.paddingSpacing ?? 2),
+    padding: props.padding ? props.padding : "15px 40px",
     wordWrap: "break-word",
     whiteSpace: "pre-wrap",
     fontSize: "16px",

@@ -6,6 +6,7 @@ import copyIcon from "../../assets/icon-copy.svg";
 import notificationIcon from "../../assets/icon-notification.svg";
 import notificationActiveIcon from "../../assets/icon-notification-active.svg";
 import downloadIcon from "../../assets/icon-download-log.svg";
+import collapseIcon from "../../assets/icon-collapse.svg";
 
 export {
   openDexLogo,
@@ -16,4 +17,5 @@ export {
   notificationIcon,
   notificationActiveIcon,
   downloadIcon,
+  collapseIcon,
 };

@@ -1,4 +1,4 @@
-import { Icon, makeStyles, Theme } from "@material-ui/core";
+import { Icon, makeStyles } from "@material-ui/core";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
@@ -12,7 +12,13 @@ import {
   expandIcon,
   readyIcon,
   syncingIcon,
+  downloadIcon,
 } from "../../common/utils/svgIcons";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import api from "../../api";
+import { formatDateTimeForFilename } from "../../common/utils/dateUtil";
+import { Subject } from "rxjs";
+import Snackbar from "../../common/components/data-display/feedback/Snackbar";
 
 export type OverviewItemProps = {
   status: Status;
@@ -21,14 +27,14 @@ export type OverviewItemProps = {
 };
 
 const getCardHeaderBackgroundImage = (props: OverviewItemProps) => {
-  if (props.status.status.includes("Ready")) {
+  if (isServiceReady(props.status)) {
     return "linear-gradient(to right, #1f995a, #00e64d)";
   } else {
     return "linear-gradient(to left, #fea900, #f15a24 0%)";
   }
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   cardHeader: (props: OverviewItemProps) => ({
     padding: "12px 16px 12px 24px",
     backgroundImage: getCardHeaderBackgroundImage(props),
@@ -56,19 +62,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   cardContentStatusValueText: {
     color: "#f2f2f2",
   },
-  statusDot: {
-    height: 10,
-    width: 10,
-    borderRadius: "50%",
-    display: "inline-block",
-    marginRight: 10,
-  },
-  active: {
-    backgroundColor: theme.palette.success.light,
-  },
-  inactive: {
-    backgroundColor: theme.palette.error.light,
-  },
   expandIcon: {
     cursor: "pointer",
   },
@@ -78,12 +71,28 @@ const useStyles = makeStyles((theme: Theme) => ({
   statusIcon: {
     padding: "0 10px",
   },
+  downloadIconContainer: {
+    fontSize: "14px",
+    color: "#000000",
+    textDecoration: "underline",
+  },
+  detailsIconContainer: {
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  titleAndLogsContainer: {
+    width: "66.6%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
 }));
 
 const OverviewItem = (props: OverviewItemProps): ReactElement => {
   const { status, opendexdLocked, opendexdNotReady } = props;
   const [detailsOpen, setDetailsOpen] = useState(false);
   const classes = useStyles(props);
+  const errorMsgOpenSubject = new Subject<boolean>();
 
   const isDetailsIconVisible = (status: Status): boolean => {
     return (
@@ -95,28 +104,72 @@ const OverviewItem = (props: OverviewItemProps): ReactElement => {
   };
 
   const getStatusIcon = (status: Status) => {
-    if (status.status.includes("Ready")) {
+    if (isServiceReady(status)) {
       return readyIcon;
     } else {
       return syncingIcon;
     }
   };
 
+  const isDownloadLogsEnabled = (status: Status): boolean => {
+    return (
+      !status.status.includes("light mode") && status.status !== "Disabled"
+    );
+  };
+
+  const downloadLogs = (serviceName: string, handleError: () => void): void => {
+    api.logs$(serviceName).subscribe({
+      next: (resp: string) => {
+        const blob = new Blob([resp]);
+        const url = URL.createObjectURL(blob);
+        const anchor = Object.assign(document.createElement("a"), {
+          href: url,
+          download: `${serviceName}_${formatDateTimeForFilename(
+            new Date()
+          )}.log`,
+          style: { display: "none" },
+        });
+        anchor.click();
+      },
+      error: handleError,
+    });
+  };
+
   return (
     <div>
       <Card square={true}>
         <Grid container className={classes.cardHeader}>
-          <Grid>
-            <Typography
-              component="span"
-              variant="body1"
-              className={classes.cardHeading}
-            >
-              {props.status.service}
-            </Typography>
-          </Grid>
+          <div className={classes.titleAndLogsContainer}>
+            <Grid>
+              <Typography
+                component="span"
+                variant="body1"
+                className={classes.cardHeading}
+              >
+                {props.status.service}
+              </Typography>
+            </Grid>
 
-          <Grid>
+            <Grid>
+              {isDownloadLogsEnabled(status) && (
+                <div>
+                  <ButtonBase
+                    className={classes.downloadIconContainer}
+                    onClick={() =>
+                      downloadLogs(status.service, () =>
+                        errorMsgOpenSubject?.next(true)
+                      )
+                    }
+                  >
+                    <img src={downloadIcon} alt="download logs" />
+                    Download Logs
+                  </ButtonBase>
+                </div>
+              )}
+            </Grid>
+          </div>
+
+          <Grid className={classes.detailsIconContainer}>
             {isDetailsIconVisible(status) && (
               <Icon
                 onClick={() => setDetailsOpen(true)}
@@ -154,6 +207,12 @@ const OverviewItem = (props: OverviewItemProps): ReactElement => {
           titleBackground={getCardHeaderBackgroundImage(props)}
         />
       )}
+
+      <Snackbar
+        message={`Could not download the logs for ${status.service}`}
+        openSubject={errorMsgOpenSubject}
+        type="error"
+      ></Snackbar>
     </div>
   );
 };
